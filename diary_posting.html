@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/assets/css/diary_posting.css" />
+  <title>diary posting</title>
+  <script src="/assets/js/diary_posting.js"></script>
+
+</head>
+
+<body>
+  <div class="tm">오늘의 기분</div>
+  <div class="category">
+    <input type="radio" value="기쁨" name="mood" class="mood" onclick="moodChoice(event)" checked="checked">기쁨
+    <input type="radio" value="슬픔" name="mood" class="mood" onclick="moodChoice(event)">슬픔
+    <input type="radio" value="분노" name="mood" class="mood" onclick="moodChoice(event)">분노
+    <input type="radio" value="피곤" name="mood" class="mood" onclick="moodChoice(event)">피곤
+    <input type="radio" value="설렘" name="mood" class="mood" onclick="moodChoice(event)">설렘
+    <input type="radio" value="우울" name="mood" class="mood" onclick="moodChoice(event)">우울
+    <div id='mood'></div>
+  </div>
+  <div class="tp">오늘의 장소</div>
+  <div class="category">
+    <input type="radio" value="집" name="place" class="place" onclick="placeChoice(event)" checked="checked">집
+    <input type="radio" value="도시" name="place" class="place" onclick="placeChoice(event)">도시
+    <input type="radio" value="바다" name="place" class="place" onclick="placeChoice(event)">바다
+    <input type="radio" value="산" name="place" class="place" onclick="placeChoice(event)">산
+    <input type="radio" value="피크닉" name="place" class="place" onclick="placeChoice(event)">피크닉
+    <input type="radio" value="식당" name="place" class="place" onclick="placeChoice(event)">식당
+    <div id='place'></div>
+  </div>
+  <div class="ta">오늘의 분위기</div>
+  <div class="category">
+    <input type="radio" value="편안한" name="atmosphere" class="atmosphere" onclick="atmosphereChoice(event)"
+      checked="checked">편안한
+    <input type="radio" value="흥분한" name="atmosphere" class="atmosphere" onclick="atmosphereChoice(event)">흥분한
+    <input type="radio" value="활기찬" name="atmosphere" class="atmosphere" onclick="atmosphereChoice(event)">활기찬
+    <input type="radio" value="우울한" name="atmosphere" class="atmosphere" onclick="atmosphereChoice(event)">우울한
+    <input type="radio" value="열정적인" name="atmosphere" class="atmosphere" onclick="atmosphereChoice(event)">열정적인
+    <input type="radio" value="조용한" name="atmosphere" class="atmosphere" onclick="atmosphereChoice(event)">조용한
+    <div id='atmosphere'></div>
+  </div>
+
+  <div class="is">그림 스타일</div>
+  <div class="category">
+    <input type="radio" value="심플" name="imgstyle" class="imgstyle" onclick="imgstyleChoice(event)" checked="checked">심플
+    <input type="radio" value="붓터치" name="imgstyle" class="imgstyle" onclick="imgstyleChoice(event)">붓터치
+    <input type="radio" value="유화" name="imgstyle" class="imgstyle" onclick="imgstyleChoice(event)">유화
+    <input type="radio" value="도트" name="imgstyle" class="imgstyle" onclick="imgstyleChoice(event)">도트
+    <input type="radio" value="수채화" name="imgstyle" class="imgstyle" onclick="imgstyleChoice(event)">수채화
+    <input type="radio" value="수묵화" name="imgstyle" class="imgstyle" onclick="imgstyleChoice(event)">수묵화
+    <div id='imgstyle'></div>
+  </div>
+
+  <div>
+    <img src="">
+    <button type="button" class="ai_img" onclick="">이미지 생성하기</button>
+    <div>
+      <label for="diary_title">제목</label>
+      <input type="text" id="diary_title" placeholder="제목을 입력하세요">
+      <div>
+        <label for="diary_content">내용</label>
+        <textarea id="diary_content" placeholder="내용을 작성해주세요."></textarea>
+      </div>
+    </div>
+    <button id="diary_open" onclick="">비공개</button>
+    <button id="diary_private" onclick="">공개</button>
+    <button class="submit_button" type="button" onclick="creatediary()">작성하기</button>
+    <button class="cancel_button" type="button" onclick="">취소하기</button>
+  </div>
+</body>
+
+</html>
