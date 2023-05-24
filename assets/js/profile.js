@@ -8,7 +8,7 @@ $(document).ready(async function () {
 
     let urlParam = new URLSearchParams(window.location.search);
     let user_id = urlParam.get('user_id');
-    console.log(user_id)
+    console.log(urlParam)
 
     const response = await getProfile(user_id);
     console.log(response)
