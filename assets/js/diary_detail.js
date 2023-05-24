@@ -5,7 +5,7 @@ const frontend_base_url = "http://127.0.0.1:5500"
 // const urlParams = new URL(location.href).searchParams;
 //     const diary_id = urlParams.get('id');
 
-diary_id = 1
+let diary_id = 1
 
 window.onload = async function getDiaryDetail() {
     const response = await fetch(`${backend_base_url}/diary` + '/' + diary_id + '/', {
@@ -26,36 +26,34 @@ window.onload = async function getDiaryDetail() {
     createdDate.innerText = new Date().toDateString(response_json['created_date']) + " 작성"
     updatedDate.innerText = new Date().toDateString(response_json['updated_date']) + " 수정"
 
-    // // user 정보
-    // const response_user = await fetch(`${backend_base_url}` + '/user/profile/' + response_json['user_id'] + '/', {
-    //     method: 'GET'
-    // })
-    // author = await response_user.json()
+    // user 정보
+    const response_user = await fetch(`${backend_base_url}` + '/user/profile/' + response_json['user'] + '/', {
+        method: 'GET'
+    })
+    author = await response_user.json()
 
     // const userProfileImage = document.getElementById('profile_image')
-    // const nickname = document.getElementById('nickname')
-    // const followers = document.getElementById('followers')
+    const nickname = document.getElementById('nickname')
 
     // userProfileImage.setAttribute('class', 'profile-image')
     // userProfileImage.src = `${backend_base_url}` + response_json['profile_image']
-    // nickname.innerText = author['nickname']
-    // followers.innerText = author['followers'].length
+    nickname.innerText = author['nickname']
 
-// }
 
-// window.onload = async function getCommnt() {
+
     const response_comment = await fetch(`${backend_base_url}/diary/comment/${diary_id}`, {
         headers : {
-            // 'Authorization': 'Bearer ' + localStorage.getItem("access"),
+            'Authorization': 'Bearer ' + localStorage.getItem("access"),
         },
         method :"GET"
     })
     const response_json_comment = await response_comment.json()
+    console.log(response_json_comment)
 
     const diaryComment = document.getElementById("diary_comment")
     response_json_comment.forEach(comment => {
         const comment_user = document.createElement('p')
-        comment_user.innerText = comment['user']
+        comment_user.innerText = comment['name']
         diaryComment.appendChild(comment_user)
 
         const comment_content = document.createElement('p')
@@ -67,5 +65,16 @@ window.onload = async function getDiaryDetail() {
 
 async function inputComment() {
     const comment_content = document.getElementById("comment-content").value
-    console.log(comment_content)
+    const response_input = await fetch(`${backend_base_url}/diary/comment/${diary_id}/`, {
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("access"),
+            'content-type': 'application/json',
+        },
+        method: "POST",
+        body: JSON.stringify({
+            "content": comment_content,
+        })
+    })
+    location.reload()
+    
 }
