@@ -24,7 +24,7 @@
 
     <!-- 프로필페이지 -->
     <div class="d-flex align-items-center justify-content-center vh-100" ">
-        <div class=" container" style="width:80%; ">
+        <div class=" container" style="width:50%; ">
         <div id="permissions">
             <!-- 로그인한 작성자 수정 기능 -->
             <div class="permission">
@@ -38,7 +38,7 @@
                 <button id="follow-btn" type="button" class="btn btn-primary">팔로우하기</button>
                 <button id="following-btn" type="button" class="btn btn-success">팔로잉</button>
                 <!-- 하얀 팔로잉 버튼 이걸 호버하면 누르면 언팔로우 뜨게 -->
-                <button id="unfollow-btn" type="button" class="btn btn-info">언팔로우</button>
+                <!-- <button id="unfollow-btn" type="button" class="btn btn-info">언팔로우</button> -->
             </div>
         </div>
 
@@ -71,27 +71,30 @@
                             <hr style=" height:10px; border:0;">
                             <div class="card" style=" border:0px;">
                                 <div>작성한 게시글:
-                                    <span id="articles_count">작성한 게시글 수</span>
+                                    <a href="#" id="diary_count">작성한 게시글 수</a>
                                 </div>
                             </div>
                         </div>
                         <div class="row row-cols-xs-1 row-cols-sm-2 justify-content-center">
                             <div class="col card" style="border : none">
                                 <div id="followings-box">팔로잉:
-                                    <span id="followings" class="text-decoration-underline text-danger">팔로잉
+                                    <span id="followings" class="text-decoration text-danger">팔로잉
                                         수</span>
                                 </div>
                                 <div id="followers-box">팔로워:
-                                    <span id="followers" class="text-decoration-underline text-primary">팔로워
+                                    <span id="followers" class="text-decoration text-primary">팔로워
                                         수</span>
+                                </div>
+                                <div>내 소개:
+                                    <span id="introduction">소개를 입력해주세요</span>
                                 </div>
                             </div>
                             <div class="col card" style="border : none">
                                 <div>좋아요한 게시글:
-                                    <a href="./hearts_article.html" id="hearted_articles_count">좋아요한 게시글 수</a>
+                                    <a href="#" id="likes_count">좋아요한 게시글 수</a>
                                 </div>
                                 <div>북마크한 게시글:
-                                    <a href="./bookmark_article.html" id="bookmarked_articles_count">북마크한 게시글
+                                    <a href="#" id="bookmarked_diary_count">북마크한 게시글
                                         수</a>
                                 </div>
                             </div>
@@ -100,15 +103,9 @@
                 </div>
             </form>
         </div>
-        <!-- 로그인한 작성자 탈퇴 기능 -->
+        <!-- 로그인한 작성자 탈퇴 기능:구현전 -->
         <div class="permission">
-            <button id="withdrawal-btn" class="btn btn-danger">탈퇴</button>
-            <button id="withdrawal2-btn" class="btn btn-danger withdrawal">탈퇴</button>
-            <button id="cancel-withdrawal-btn" class="btn btn-secondary withdrawal">취소</button>
-            <div class="form-floating withdrawal">
-                <input type="password" class="form-control" id="password-input" placeholder="비밀번호">
-                <label for="floatingPassword">비밀번호</label>
-            </div>
+            <button id="withdrawal-btn" class="btn btn-danger" onclick="UserDelete()">탈퇴</button>
         </div>
     </div>
     </div>
