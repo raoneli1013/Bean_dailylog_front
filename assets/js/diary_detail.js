@@ -5,7 +5,7 @@ const frontend_base_url = "http://127.0.0.1:5500"
 // const urlParams = new URL(location.href).searchParams;
 //     const diary_id = urlParams.get('id');
 
-diary_id = 2
+diary_id = 1
 
 window.onload = async function getDiaryDetail() {
     const response = await fetch(`${backend_base_url}/diary` + '/' + diary_id + '/', {
