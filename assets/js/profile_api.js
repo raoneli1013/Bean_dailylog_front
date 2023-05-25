@@ -9,8 +9,6 @@ function redirectUpdatePage() {
 }
 
 
-// const urlParams = new URLSearchParams(window.location.search).get('id');
-// BeforeProfile(urlParams);
 
 
 //원래 반영되어있던 내용을 가져와서 보여줌
@@ -23,9 +21,6 @@ async function BeforeProfile(user_id) {
     response_json = await response.json();
     console.log(response_json)
 
-    //원래 반영되어있던 닉네임과 내소개를 가져와서 보여줌
-    // document.getElementById('nickname').value = response_json.nickname;
-    // document.getElementById('introduction').value = response_json.introduction;
 
     $('#nickname').text(response_json.nickname);
     $('#email').text(response_json.email);
@@ -39,14 +34,14 @@ async function BeforeProfile(user_id) {
 }
 
 
-console.log("찍힌다")
+
 //프로필 수정
 async function ProfileUpdate() {
     const nickname = document.getElementById('nickname').value;
     const introduction = document.getElementById('introduction').value;
     const img = document.getElementById('profile_img').files[0]
     const token = localStorage.getItem("access");
-    console.log(img)
+
 
 
     const formData = new FormData();
@@ -72,19 +67,6 @@ async function ProfileUpdate() {
         console.error("요청 실패:", response);
     }
 
-    //이미지가 안보내져서 아래 form태그로 다시
-    // const response = await fetch(`http://127.0.0.1:8000/user/`, {
-    //     headers: {
-    //         "Authorization": "Bearer " + token,
-    //         'content-type': 'application/json',
-    //     },
-    //     method: 'PUT',
-    //     body: JSON.stringify({
-    //         "nickname": nickname,
-    //         "introduction": introduction,
-    //         "profile_img": img
-    //     })
-    // })
 
 }
 
