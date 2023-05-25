@@ -6,6 +6,10 @@ function redirectUpdatePage() {
 
 }
 
+function ProfileNoUpdate() {
+    window.location.href = `profile.html?id=${users_id}`;
+}
+
 
 
 
