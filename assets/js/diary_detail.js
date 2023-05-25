@@ -5,12 +5,26 @@ const frontend_base_url = "http://127.0.0.1:5500"
 const urlParams = new URLSearchParams(window.location.search);
 const diary_id = urlParams.get('id');
 
+let currentUser = null; // 현재 로그인 한 유저를 저장하는 변수
+
 window.onload = async function getDiaryDetail() {
     const response = await fetch(`${backend_base_url}/diary` + '/' + diary_id + '/', { // http://127.0.0.1:5500/diary_detail?id=diary_id 형태로 들어감
         method: 'GET'
     })
     response_json = await response.json()
-    console.log(response_json)
+    console.log("start",response_json)
+
+    const response_user_current = await fetch(`${backend_base_url}/user/dj-rest-auth/user/`, {
+        headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem("access"),
+        },
+        method: 'GET',
+    });
+    
+    const current_user_data = await response_user_current.json();
+    currentUser = current_user_data['pk'];
+ 
+    
 
     // 본문 내용
     const title = document.getElementById('title')
@@ -59,7 +73,7 @@ window.onload = async function getDiaryDetail() {
         method :"GET"
     })
     const response_json_comment = await response_comment.json()
-    console.log(response_json_comment)
+    console.log("comment",response_json_comment)
 
 const diaryComment = document.getElementById("diary_comment");
 
@@ -76,17 +90,19 @@ response_json_comment.forEach(comment => {
     commentContent.setAttribute('id', `comment-content-${comment['id']}`); 
     commentContainer.appendChild(commentContent);
   
-    // 수정하기 버튼 추가
-    const editButton = document.createElement('button');
-    editButton.innerText = '수정하기';
-    editButton.addEventListener('click', () => editComment(comment['id']));
-    commentContainer.appendChild(editButton);
-  
-    // 삭제 버튼 추가
-    const deleteButton = document.createElement('button');
-    deleteButton.innerText = '삭제';
-    deleteButton.addEventListener('click', () => deleteComment(comment['id']));
-    commentContainer.appendChild(deleteButton);
+    if(comment['user'] === currentUser) {
+        // 수정하기 버튼 추가
+        const editButton = document.createElement('button');
+        editButton.innerText = '수정하기';
+        editButton.addEventListener('click', () => editComment(comment['id']));
+        commentContainer.appendChild(editButton);
+    
+        // 삭제 버튼 추가
+        const deleteButton = document.createElement('button');
+        deleteButton.innerText = '삭제';
+        deleteButton.addEventListener('click', () => deleteComment(comment['id']));
+        commentContainer.appendChild(deleteButton);
+      }
   
     diaryComment.appendChild(commentContainer);
   
@@ -113,8 +129,7 @@ response_json_comment.forEach(comment => {
   
     diaryComment.appendChild(editForm);
   });
-  
-
+ 
 }
 
 
