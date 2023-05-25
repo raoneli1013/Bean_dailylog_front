@@ -2,13 +2,11 @@ const backend_base_url = "http://127.0.0.1:8000"
 const frontend_base_url = "http://127.0.0.1:5500"
 
 
-// const urlParams = new URL(location.href).searchParams;
-//     const diary_id = urlParams.get('id');
-
-let diary_id = 1
+const urlParams = new URLSearchParams(window.location.search);
+const diary_id = urlParams.get('id');
 
 window.onload = async function getDiaryDetail() {
-    const response = await fetch(`${backend_base_url}/diary` + '/' + diary_id + '/', {
+    const response = await fetch(`${backend_base_url}/diary` + '/' + diary_id + '/', { // http://127.0.0.1:5500/diary_detail?id=diary_id 형태로 들어감
         method: 'GET'
     })
     response_json = await response.json()
@@ -27,20 +25,33 @@ window.onload = async function getDiaryDetail() {
     updatedDate.innerText = new Date().toDateString(response_json['updated_date']) + " 수정"
 
     // user 정보
-    const response_user = await fetch(`${backend_base_url}` + '/user/profile/' + response_json['user'] + '/', {
+    const response_user = await fetch(`${backend_base_url}` + '/user/' + response_json['user'] + '/', {
         method: 'GET'
     })
     author = await response_user.json()
-
-    // const userProfileImage = document.getElementById('profile_image')
     const nickname = document.getElementById('nickname')
-
-    // userProfileImage.setAttribute('class', 'profile-image')
-    // userProfileImage.src = `${backend_base_url}` + response_json['profile_image']
     nickname.innerText = author['nickname']
 
 
+    //key값에 image가 들어왔는지 확인
+        //image, default_image인지 확인하여 출력여부 결정
+        if (response_json['article_img'] === null) {
+            const imageBox = document.getElementById('image-box');
+            const feedImage = document.createElement("img")
+            feedImage.setAttribute('class', 'imagecard')
+            feedImage.setAttribute("src", "/assets/images/default_image.jpg")
+            imageBox.appendChild(feedImage)
+        } else {
+            //image가 있으면 넣어주기
+            const imageBox = document.getElementById('image-box');
+            const feedImage = document.createElement("img")
+            feedImage.setAttribute('class', 'imagecard')
+            feedImage.setAttribute("src", `${backend_base_url}` + `${response_json['article_img']}`)
+            imageBox.appendChild(feedImage)
 
+    }
+
+    // 댓글 보기
     const response_comment = await fetch(`${backend_base_url}/diary/comment/${diary_id}`, {
         headers : {
             'Authorization': 'Bearer ' + localStorage.getItem("access"),
