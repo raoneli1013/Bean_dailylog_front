@@ -66,7 +66,7 @@
           
           let imageUrl = 'http://127.0.0.1:8000/' + post.article_img;
     
-          if (!imageUrl) {
+          if (imageUrl == "http://127.0.0.1:8000/null") {
             // If the post does not have an image, use a default image
             imageUrl = 'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F1GlEb%2Fbtsg9OvL3p3%2FRb689ClK5QHS3fcKRb39qk%2Fimg.png';  // 디폴트 이미지의 경로로 변경해야 합니다.
           }
