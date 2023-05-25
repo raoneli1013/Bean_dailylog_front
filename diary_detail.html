@@ -51,6 +51,11 @@
                 <!-- 댓글이 생성되는 곳 -->
             </div>
         </div>
+        <div id="edit-comment-form" style="display: none;">
+            <input type="text" id="edit-comment-content" placeholder="수정할 내용을 입력하세요.">
+            <button type="button" onclick="saveEditedComment()">저장</button>
+            <button type="button" onclick="cancelEdit()">취소</button>
+        </div>
         <ul id="comment-list"></ul>
     </div>
     <!-- 하단 푸터 시작-->
