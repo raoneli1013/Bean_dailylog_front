@@ -4,14 +4,27 @@ const frontend_base_url = "http://127.0.0.1:5500"
 
 const urlParams = new URLSearchParams(window.location.search);
 const diary_id = urlParams.get('id');
-console.log(diary_id)
+
+let currentUser = null; // 현재 로그인 한 유저를 저장하는 변수
 
 window.onload = async function getDiaryDetail() {
-  const response = await fetch(`${backend_base_url}/diary` + '/' + diary_id + '/', { // http://127.0.0.1:5500/diary_detail?id=diary_id 형태로 들어감
+  const response = await fetch(`${backend_base_url}/diary/` + diary_id + '/', { // http://127.0.0.1:5500/diary_detail?id=diary_id 형태로 들어감
     method: 'GET'
   })
   response_json = await response.json()
-  console.log(response_json)
+  console.log("start", response_json)
+
+  const response_user_current = await fetch(`${backend_base_url}/user/dj-rest-auth/user/`, {
+    headers: {
+      'Authorization': 'Bearer ' + localStorage.getItem("access"),
+    },
+    method: 'GET',
+  });
+
+  const current_user_data = await response_user_current.json();
+  currentUser = current_user_data['pk'];
+
+
 
   // 본문 내용
   const title = document.getElementById('title')
@@ -31,11 +44,12 @@ window.onload = async function getDiaryDetail() {
   })
   author = await response_user.json()
   const nickname = document.getElementById('nickname')
-  nickname.innerText = author['nickname']
+  nickname.innerText = "닉네임 : " + author['nickname']
 
 
   //key값에 image가 들어왔는지 확인
   //image, default_image인지 확인하여 출력여부 결정
+  // json article_img가 profile_img를 가져오는것같아용 확인부탁드립니댱! -소진
   if (response_json['article_img'] === null) {
     const imageBox = document.getElementById('image-box');
     const feedImage = document.createElement("img")
@@ -47,10 +61,11 @@ window.onload = async function getDiaryDetail() {
     const imageBox = document.getElementById('image-box');
     const feedImage = document.createElement("img")
     feedImage.setAttribute('class', 'imagecard')
-    feedImage.setAttribute("src", `${backend_base_url}` + `${response_json['article_img']}`)
+    // feedImage.setAttribute("src", `${backend_base_url}` + `${response_json['article_img']}`)
     imageBox.appendChild(feedImage)
 
   }
+
 
   // 댓글 보기
   const response_comment = await fetch(`${backend_base_url}/diary/comment/${diary_id}`, {
@@ -60,7 +75,7 @@ window.onload = async function getDiaryDetail() {
     method: "GET"
   })
   const response_json_comment = await response_comment.json()
-  console.log(response_json_comment)
+  console.log("comment", response_json_comment)
 
   const diaryComment = document.getElementById("diary_comment");
 
@@ -77,17 +92,19 @@ window.onload = async function getDiaryDetail() {
     commentContent.setAttribute('id', `comment-content-${comment['id']}`);
     commentContainer.appendChild(commentContent);
 
-    // 수정하기 버튼 추가
-    const editButton = document.createElement('button');
-    editButton.innerText = '수정하기';
-    editButton.addEventListener('click', () => editComment(comment['id']));
-    commentContainer.appendChild(editButton);
+    if (comment['user'] === currentUser) {
+      // 수정하기 버튼 추가
+      const editButton = document.createElement('button');
+      editButton.innerText = '수정하기';
+      editButton.addEventListener('click', () => editComment(comment['id']));
+      commentContainer.appendChild(editButton);
 
-    // 삭제 버튼 추가
-    const deleteButton = document.createElement('button');
-    deleteButton.innerText = '삭제';
-    deleteButton.addEventListener('click', () => deleteComment(comment['id']));
-    commentContainer.appendChild(deleteButton);
+      // 삭제 버튼 추가
+      const deleteButton = document.createElement('button');
+      deleteButton.innerText = '삭제';
+      deleteButton.addEventListener('click', () => deleteComment(comment['id']));
+      commentContainer.appendChild(deleteButton);
+    }
 
     diaryComment.appendChild(commentContainer);
 
@@ -113,8 +130,12 @@ window.onload = async function getDiaryDetail() {
     editForm.appendChild(cancelButton);
 
     diaryComment.appendChild(editForm);
-  });
 
+    // console.log("start", response_json)
+    // 좋아요 카운트
+    $('#likes_count').text(response_json.likes_count);
+    $('#bookmark_count').text(response_json.bookmarks_count);
+  });
 
 }
 
@@ -182,4 +203,42 @@ async function deleteComment(id) {
 
   // 페이지를 새로고침합니다.
   location.reload();
+
+
 }
+
+
+//좋아요
+
+async function LikeLike() {
+  const response = await fetch(`${backend_base_url}/diary/${diary_id}/likes/`, {
+    headers: {
+      "Authorization": "Bearer " + localStorage.getItem("access"),
+      'content-type': 'application/json',
+    },
+    method: 'POST',
+  })
+  if (response.status === 200) {
+    alert("하튜")
+    location.reload();
+  }
+
+}
+
+async function ClickBookmark() {
+  const response = await fetch(`${backend_base_url}/diary/${diary_id}/bookmark/`, {
+    headers: {
+      "Authorization": "Bearer " + localStorage.getItem("access"),
+      'content-type': 'application/json',
+    },
+    method: 'POST',
+  })
+  if (response.status === 200) {
+    alert("bookmark")
+    location.reload();
+  }
+
+}
+
+
+
