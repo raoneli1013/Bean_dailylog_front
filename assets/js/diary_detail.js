@@ -2,13 +2,11 @@ const backend_base_url = "http://127.0.0.1:8000"
 const frontend_base_url = "http://127.0.0.1:5500"
 
 
-// const urlParams = new URL(location.href).searchParams;
-//     const diary_id = urlParams.get('id');
-
-let diary_id = 1
+const urlParams = new URLSearchParams(window.location.search);
+const diary_id = urlParams.get('id');
 
 window.onload = async function getDiaryDetail() {
-    const response = await fetch(`${backend_base_url}/diary` + '/' + diary_id + '/', {
+    const response = await fetch(`${backend_base_url}/diary` + '/' + diary_id + '/', { // http://127.0.0.1:5500/diary_detail?id=diary_id 형태로 들어감
         method: 'GET'
     })
     response_json = await response.json()
@@ -27,20 +25,33 @@ window.onload = async function getDiaryDetail() {
     updatedDate.innerText = new Date().toDateString(response_json['updated_date']) + " 수정"
 
     // user 정보
-    const response_user = await fetch(`${backend_base_url}` + '/user/profile/' + response_json['user'] + '/', {
+    const response_user = await fetch(`${backend_base_url}` + '/user/' + response_json['user'] + '/', {
         method: 'GET'
     })
     author = await response_user.json()
-
-    // const userProfileImage = document.getElementById('profile_image')
     const nickname = document.getElementById('nickname')
-
-    // userProfileImage.setAttribute('class', 'profile-image')
-    // userProfileImage.src = `${backend_base_url}` + response_json['profile_image']
     nickname.innerText = author['nickname']
 
 
+    //key값에 image가 들어왔는지 확인
+        //image, default_image인지 확인하여 출력여부 결정
+        if (response_json['article_img'] === null) {
+            const imageBox = document.getElementById('image-box');
+            const feedImage = document.createElement("img")
+            feedImage.setAttribute('class', 'imagecard')
+            feedImage.setAttribute("src", "/assets/images/default_image.jpg")
+            imageBox.appendChild(feedImage)
+        } else {
+            //image가 있으면 넣어주기
+            const imageBox = document.getElementById('image-box');
+            const feedImage = document.createElement("img")
+            feedImage.setAttribute('class', 'imagecard')
+            feedImage.setAttribute("src", `${backend_base_url}` + `${response_json['article_img']}`)
+            imageBox.appendChild(feedImage)
 
+    }
+
+    // 댓글 보기
     const response_comment = await fetch(`${backend_base_url}/diary/comment/${diary_id}`, {
         headers : {
             'Authorization': 'Bearer ' + localStorage.getItem("access"),
@@ -50,16 +61,60 @@ window.onload = async function getDiaryDetail() {
     const response_json_comment = await response_comment.json()
     console.log(response_json_comment)
 
-    const diaryComment = document.getElementById("diary_comment")
-    response_json_comment.forEach(comment => {
-        const comment_user = document.createElement('p')
-        comment_user.innerText = comment['name']
-        diaryComment.appendChild(comment_user)
+const diaryComment = document.getElementById("diary_comment");
 
-        const comment_content = document.createElement('p')
-        comment_content.innerText = comment['content']
-        diaryComment.appendChild(comment_content)
-    })
+response_json_comment.forEach(comment => {
+    const commentContainer = document.createElement('div');
+    commentContainer.setAttribute('class', 'comment-container');
+  
+    const commentUser = document.createElement('p');
+    commentUser.innerText = comment['name'];
+    commentContainer.appendChild(commentUser);
+  
+    const commentContent = document.createElement('p');
+    commentContent.innerText = comment['content'];
+    commentContent.setAttribute('id', `comment-content-${comment['id']}`); 
+    commentContainer.appendChild(commentContent);
+  
+    // 수정하기 버튼 추가
+    const editButton = document.createElement('button');
+    editButton.innerText = '수정하기';
+    editButton.addEventListener('click', () => editComment(comment['id']));
+    commentContainer.appendChild(editButton);
+  
+    // 삭제 버튼 추가
+    const deleteButton = document.createElement('button');
+    deleteButton.innerText = '삭제';
+    deleteButton.addEventListener('click', () => deleteComment(comment['id']));
+    commentContainer.appendChild(deleteButton);
+  
+    diaryComment.appendChild(commentContainer);
+  
+    // 수정할 내용을 입력받을 폼 
+    const editForm = document.createElement('div');
+    editForm.setAttribute('class', 'edit-form');
+    editForm.setAttribute('id', `edit-form-${comment['id']}`);
+    editForm.style.display = 'none';
+  
+    const editInput = document.createElement('input');
+    editInput.setAttribute('type', 'text');
+    editInput.setAttribute('id', `edit-input-${comment['id']}`);
+    editForm.appendChild(editInput);
+  
+    const saveButton = document.createElement('button');
+    saveButton.innerText = '저장';
+    saveButton.addEventListener('click', () => saveEditedComment(comment['id']));
+    editForm.appendChild(saveButton);
+  
+    const cancelButton = document.createElement('button');
+    cancelButton.innerText = '취소';
+    cancelButton.addEventListener('click', () => cancelEdit(comment['id']));
+    editForm.appendChild(cancelButton);
+  
+    diaryComment.appendChild(editForm);
+  });
+  
+
 }
 
 
@@ -78,3 +133,52 @@ async function inputComment() {
     location.reload()
     
 }
+
+let editingCommentId = null;
+
+// 수정하기 버튼클릭
+function editComment(id) {
+    editingCommentId = id;
+  
+    document.getElementById('edit-comment-form').style.display = 'block'; // input 창을 보여줌
+    document.getElementById('edit-comment-content').value = '';
+  }
+  
+  // 수정된 내용 저장
+  async function saveEditedComment() {
+    const newContent = document.getElementById('edit-comment-content').value;
+  
+    const response = await fetch(`${backend_base_url}/diary/comment/${diary_id}/${editingCommentId}/`, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('access'),
+        'Content-Type': 'application/json',
+      },
+      method: 'PUT',
+      body: JSON.stringify({
+        content: newContent,
+      }),
+    });
+  
+    location.reload();
+  }
+  
+  // 수정 취소
+  function cancelEdit() {
+    // 입력 폼을 숨깁니다.
+    document.getElementById('edit-comment-form').style.display = 'none';
+    editingCommentId = null;
+  }
+  
+  // 댓글 삭제
+  async function deleteComment(id) {
+    editingCommentId = id;
+    const response = await fetch(`${backend_base_url}/diary/comment/${diary_id}/${editingCommentId}`, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('access'),
+      },
+      method: 'DELETE',
+    });
+  
+    // 페이지를 새로고침합니다.
+    location.reload();
+  }
