@@ -23,20 +23,20 @@
 
 
     <!-- 프로필페이지 -->
-    <div class="d-flex align-items-center justify-content-center vh-100" ">
+    <div class="d-flex align-items-center justify-content-center vh-100">
         <div class=" container" style="width:50%; ">
-        <div id="permissions">
-            <!-- 로그인한 작성자 수정 기능 -->
-            <div class="permission">
-                <button id="edit-btn" class="btn btn-warning" onclick="redirectUpdatePage()">수정</button>
-                <button id="cancel-btn" class="hidden btn btn-secondary">취소</button>
-                <!-- <button class="hidden btn btn btn-dark" id="confirm-btn" onclick="putProfile()">완료</button> -->
-                <button class="hidden btn btn btn-dark" id="confirm-btn">완료</button>
-            </div>
-            <!-- 로그인 한 다른 사람 -->
-            <div class="permission2">
-                <button id="follow-btn" type="button" class="btn btn-primary">팔로우하기</button>
-                <button id="following-btn" type="button" class="btn btn-success">팔로잉</button>
+            <div id="permissions">
+                <!-- 로그인한 작성자 수정 기능 -->
+                <div class="permission">
+                    <!-- <button id="edit-btn" class="btn btn-warning">수정</button> -->
+                    <button id="cancel-btn" class="hidden btn btn-secondary">취소</button>
+                    <!-- <button class="hidden btn btn btn-dark" id="confirm-btn" onclick="putProfile()">완료</button> -->
+                    <button class="hidden btn btn btn-dark" id="confirm-btn" onclick="ProfileUpdate()">완료</button>
+                </div>
+                <!-- 로그인 한 다른 사람 -->
+                <!-- <div class="permission2"> -->
+                <!-- <button id="follow-btn" type="button" class="btn btn-primary">팔로우하기</button>
+                <button id="following-btn" type="button" class="btn btn-success">팔로잉</button> -->
                 <!-- 하얀 팔로잉 버튼 이걸 호버하면 누르면 언팔로우 뜨게 -->
                 <!-- <button id="unfollow-btn" type="button" class="btn btn-info">언팔로우</button> -->
             </div>
@@ -54,18 +54,17 @@
                             <div id="profile-image" class="col card align-self-center">
                                 <img id="img" src="#" alt="이미지 미리보기" style="max-width : 300px">
                             </div>
-                            <input type="file" id="image-input" class="hidden overlay"></input>
+                            <input type="file" id="profile_img" class="hidden overlay"></input>
                         </div>
                     </div>
 
                     <div class="col" style="min-width:300px;">
                         <div class="card" style="  border:0px;">
 
-                            <h1>
-                                <input type="text" class="form-control form-control-sm hidden" id="myNickname"
-                                    placeholder="닉네임">
-                                <span id="nickname" class="original-content">nickname</span>
-                            </h1>
+                            <h3>
+                                <textarea id="nickname" class="original-content"
+                                    placeholder="새로운 닉네임을 입력해주세요"></textarea>
+                            </h3>
 
                             <div class="card-text" id="email">email</div>
                             <hr style=" height:10px; border:0;">
@@ -86,7 +85,7 @@
                                         수</span>
                                 </div>
                                 <div>내 소개:
-                                    <span id="introduction">소개를 입력해주세요</span>
+                                    <textarea id="introduction" placeholder="새로운 소개를 입력해주세요"></textarea>
                                 </div>
                             </div>
                             <div class="col card" style="border : none">
@@ -121,7 +120,7 @@
 <script src="/assets/js/profile_api.js"></script>
 <script src="/assets/js/nav.js"></script>
 <script src="/assets/js/profile.js"></script>
-<!-- <script src="/assets/js/profile_update.js"></script> -->
+<script src="/assets/js/profile_update.js"></script>
 <script src="/assets/js/footer.js"></script>
 
 
