@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Masonry Layout with Isotope</title>
+  <style>
+    /* Add some basic styling */
+    #container {
+      width: 90%;
+      margin: 0 auto;
+    }
+    .item {
+      width: 300px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    .item img {
+      width: 100%;
+      height: auto;
+    }
+    .item-info {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0s, opacity 0.5s linear;
+    }
+    .item:hover .item-info {
+      visibility: visible;
+      opacity: 1;
+    }
+    .item-info h2, .item-info p {
+      margin: 20px;
+    }
+  </style>
+
+  <!-- Load lightbox library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+  
+</head>
+<body>
+  <div id="container">
+    <!-- Items will be added here by JavaScript -->
+  </div>
+
+  <!-- Load Isotope and imagesLoaded libraries -->
+  <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+  <script>
+    fetch('http://127.0.0.1:8000/diary/')  // Django에서 제공하는 API endpoint로 변경해야 합니다.
+      .then(response => response.json())
+      .then(posts => {
+        const container = document.querySelector('#container');
+
+        posts.forEach(post => { 
+          const item = document.createElement('div');
+          item.classList.add('item');
+          
+          let imageUrl = 'http://127.0.0.1:8000/' + post.article_img;
+    
+          if (!imageUrl) {
+            // If the post does not have an image, use a default image
+            imageUrl = 'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F1GlEb%2Fbtsg9OvL3p3%2FRb689ClK5QHS3fcKRb39qk%2Fimg.png';  // 디폴트 이미지의 경로로 변경해야 합니다.
+          }
+
+          item.innerHTML = `
+            <a href="${imageUrl}" data-lightbox="image-1" data-title="${post.title}">
+              <img src="${imageUrl}" alt="${post.title}" />
+              <div class="item-info">
+                <h2>${post.title}</h2>
+                <p>${post.content}</p>
+              </div>
+            </a>
+          `;
+          container.appendChild(item);
+        });
+
+        // Initialize Isotope after all items are added
+        var iso = new Isotope( container, {
+          itemSelector: '.item',
+          layoutMode: 'masonry',
+          initLayout: false,
+        });
+
+        imagesLoaded( container ).on( 'done', function() {
+          iso.layout();
+        });
+      });
+  </script>
+</body>
+</html>
