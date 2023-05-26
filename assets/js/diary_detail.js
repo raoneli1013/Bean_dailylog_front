@@ -23,7 +23,7 @@ window.onload = async function getDiaryDetail() {
     
     const current_user_data = await response_user_current.json();
     currentUser = current_user_data['pk'];
- 
+
     
 
     // 본문 내용
@@ -44,7 +44,8 @@ window.onload = async function getDiaryDetail() {
     })
     author = await response_user.json()
     const nickname = document.getElementById('nickname')
-    nickname.innerText = author['nickname']
+    nickname.innerText = "닉네임 : "+ author['nickname']
+    console.log("??",response_json)
 
 
     //key값에 image가 들어왔는지 확인
