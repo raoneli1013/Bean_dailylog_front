@@ -11,13 +11,13 @@ $(document).ready(function () {
         //유저 토큰을 가져와서 로그인시 닉네임 표시
         const payload = localStorage.getItem("payload");
         const payload_parse = JSON.parse(payload);
-        console.log(payload_parse.nickname);
+        console.log(payload_parse.nickname, "네비 닉네임 찍히는지 확인용");
 
         const intro = document.getElementById("intro");
         if (intro) {
             const payload = localStorage.getItem("payload");
             const payload_parse = JSON.parse(payload);
-            console.log(payload_parse.user_id)
+            console.log(payload_parse.user_id, "네비 id값 출력되는지 확인용");
             intro.innerText = `${payload_parse.nickname}님 안녕하세요`;
             intro.href = `${FRONT_BASE_URL}/profile.html`
             // fetch(`${BACK_BASE_URL}/user/` + payload_parse.user_id)

@@ -1,9 +1,9 @@
-console.log("마이페이지다마")
+// console.log("마이페이지다마")
 const payload = localStorage.getItem("payload");
 const payload_parse = JSON.parse(payload);
 const users_id = payload_parse.user_id
-console.log(payload_parse.user_id)
-console.log(users_id)
+// console.log(payload_parse.user_id)
+// console.log(users_id)
 
 async function getProfile() {
     const response = await fetch(`http://127.0.0.1:8000/user/${users_id}`, {
@@ -39,7 +39,7 @@ window.onload = async function loadProfile() {
     if (profile.profile_img == '' || profile.profile_img == null || typeof profile.profile_img === 'undefined') {
         $('#img').attr('src', './assets/images/diary.png');
     } else {
-        $('#img').attr('src', `${backend_base_url}${profile.profile_img}`);
+        $('#img').attr('src', `http://127.0.0.1:8000${profile.profile_img}`);
     }
 
     //닉네임, 이메일, 내가 작성한 글, 내가 좋아요한 글, 북마크한 글, 팔로잉, 팔로워 표기
@@ -89,6 +89,7 @@ window.onload = async function loadProfile() {
             console.error('오류 발생:', error);
             location.reload();
         }
+
 
 
 

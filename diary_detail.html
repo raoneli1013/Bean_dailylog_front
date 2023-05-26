@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,6 +12,7 @@
 
     <title>comment_test</title>
 </head>
+
 <body>
     <!-- 상단 네비게이션바 -->
     <div id="navbar-container"></div>
@@ -29,6 +31,17 @@
                                 </div>
                                 <div class="like-container">
                                     <!-- 좋아요 버튼 만들기 -->
+                                    <!-- 좋아요! -->
+                                    <div class="card text-center" style="border:none">
+
+                                        <a href="#" onclick="LikeLike()" style="text-decoration: none;">❤️</a>
+                                        <span id="likes_count" style="text-decoration: none;">좋아요 수</span>
+                                    </div>
+                                    <div class="card text-center" style="border:none">
+                                        <a href="#" onclick="ClickBookmark()"
+                                            style="text-decoration: none;">bookmark</a>
+                                        <span id="bookmark_count" style="text-decoration: none;">북마크 수</span>
+                                    </div>
                                     <div>
                                         <p id="nickname"></p>
                                         <p id="created_date"></p>
@@ -67,4 +80,5 @@
     <script src="/assets/js/nav.js"></script>
     <script src="/assets/js/footer.js"></script>
 </body>
+
 </html>
