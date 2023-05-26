@@ -65,8 +65,11 @@
         <textarea id="diary_content" placeholder="내용을 작성해주세요."></textarea>
       </div>
     </div>
-    <input type="radio" value="공개" name="onoff" id="diary_open" onclick="onoff()">공개
+    <!-- <input type="radio" value="공개" name="onoff" id="diary_open" onclick="onoff()">공개
+    <input type="radio" value="비공개" name="onoff" id="diary_private" onclick="onoff()">비공개 -->
+    <input type="radio" value="공개" name="onoff" id="open" onclick="onoff()">공개
     <input type="radio" value="비공개" name="onoff" id="diary_private" onclick="onoff()">비공개
+    <input type="hidden" name="is_private" id="private">
     <button class="submit_button" type="button" onclick="creatediary()">작성하기</button>
     <button class="cancel_button" type="button" onclick="cancel()">취소하기</button>
   </div>
