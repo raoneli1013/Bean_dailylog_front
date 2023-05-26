@@ -7,9 +7,9 @@ export async function handleSignup() {
   const email = document.getElementById("jy-email").value;
   const password1 = document.getElementById("jy-password1").value;
   const password2 = document.getElementById("jy-password2").value;
-  const nickname = document.getElementById("jy-nickname").value;
+  const url = `${BACK_BASE_URL}/user/dj-rest-auth/registration/`
   if (password1 === password2) {
-    const response = await fetch(`${BACK_BASE_URL}/user/dj-rest-auth/registration/`, {
+    const response = await fetch(url, {
       headers: {
         "content-type": "application/json",
       },
@@ -18,9 +18,11 @@ export async function handleSignup() {
         email: email,
         password1: password1,
         password2: password2,
-        nickname: nickname,
       }),
     });
+    console.log(email)
+    console.log(password1)
+    console.log(password2)
     // 회원 가입 성공 또는 실패에 따른 처리
     if (response.ok) {
       // 회원 가입 성공
@@ -85,14 +87,16 @@ export async function handleSignup() {
   localStorage.setItem("new", "True");
 
   // 프로필 페이지 만들어지면 거기로 보냄
-  // window.location.href = "profile-update.html"
+  window.location.href = "profile_update.html"
 
 }
 
 export async function handleLogin() {
   const email = document.getElementById("jy-login-email").value;
   const password = document.getElementById("jy-login-password").value;
-  const response_after_signup = await fetch(`${BACK_BASE_URL}/user/dj-rest-auth/login/`, {
+  // const url = `${BACK_BASE_URL}/user/register/login`
+  const url = `${BACK_BASE_URL}/user/dj-rest-auth/login/`
+  const response_after_signup = await fetch(url, {
     headers: {
       "content-type": "application/json",
     },
@@ -144,4 +148,10 @@ async function getProfile() {
   })
   console.log(response)
 }
+
+export async function handlegoogleLogin() {
+  const response = await fetch(`${BACK_BASE_URL}/user/google/login`, {
+    method: "GET",
+  })
+};
 
