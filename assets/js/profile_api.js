@@ -72,3 +72,15 @@ async function ProfileUpdate() {
 
 }
 
+
+
+// 프로필 북마크 게시글 불러오기
+async function LoadBookmark() {
+    const response = await fetch(`http://127.0.0.1:8000/user/${users_id}/`, {
+        method: 'GET',
+    });
+
+    const data = await response.json();
+    console.log(data)
+    const DiaryList = document.getElementById('');
+}
