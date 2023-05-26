@@ -55,3 +55,11 @@
     overflow: auto;
     margin-right:10px;
 }
+
+#delete-diary-button{
+    float: right;
+}
+
+#edit-diary-button{
+    float: right;
+}
