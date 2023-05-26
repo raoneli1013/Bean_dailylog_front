@@ -24,7 +24,7 @@ async function creatediary(){
 
   if (response.status == 201) {
       alert("diary 생성 완료")
-      window.location.replace(`${frontend_base_url}/index.html`)
+      window.location.replace(`${frontend_base_url}/feed.html`)
   }else{
     alert(`${response.status}\n제목과 내용을 모두 입력하세요`)
   }
@@ -142,9 +142,15 @@ async function createImg(){
     },
     body: formdata
   })
-
+console.log(prompt)
 }
 
 async function cancel(){
-  window.location.replace(`${frontend_base_url}/index.html`)
+  window.location.replace(`${frontend_base_url}/feed.html`)
+}
+
+async function onoff() {
+  const isPrivate = document.getElementById("diary_private").checked;
+  document.getElementById("is_private_input").value = isPrivate;
+  console.log(isprivate)
 }
