@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <title>Masonry Layout with Isotope</title>
   <style>
@@ -9,7 +8,6 @@
       width: 90%;
       margin: 0 auto;
     }
-
     .item {
       width: 300px;
       margin-bottom: 20px;
@@ -18,45 +16,64 @@
       position: relative;
       overflow: hidden;
     }
-
     .item img {
       width: 100%;
       height: auto;
     }
-
     .item-info {
       position: absolute;
       top: 0;
       bottom: 0;
       left: 0;
       right: 0;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0,0,0,0.7);
       color: white;
       visibility: hidden;
       opacity: 0;
       transition: visibility 0s, opacity 0.5s linear;
     }
-
     .item:hover .item-info {
       visibility: visible;
       opacity: 1;
     }
-
-    .item-info h2,
-    .item-info p {
+    .item-info h2, .item-info p {
       margin: 20px;
+    }
+    #previous, #next {
+      position: fixed;
+      top: 50%;
+      width: 50px;
+      height: 50px;
+      background-color: rgba(255, 255, 255, 0.8);
+      color: black;
+      text-align: center;
+      line-height: 50px;
+      font-size: 2em;
+      cursor: pointer;
+      opacity: 0.3;
+      transition: opacity 0.2s;
+    }
+    #previous:hover, #next:hover {
+      opacity: 1;
+    }
+    #previous {
+      left: 10px;
+    }
+    #next {
+      right: 10px;
     }
   </style>
 
   <!-- Load lightbox library -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
-
 </head>
-
 <body>
   <div id="container">
     <!-- Items will be added here by JavaScript -->
   </div>
+
+  <div id="previous">&lt;</div>
+  <div id="next">&gt;</div>
 
   <!-- Load Isotope and imagesLoaded libraries -->
   <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
@@ -64,60 +81,79 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
   <script>
     const container = document.querySelector('#container');
-    
     let iso;
-    
-    fetch('http://localhost:8000/diary/')
-      .then(response => response.json())
-      .then(posts => {
-        posts.forEach(post => { 
-          const item = document.createElement('div');
-          item.classList.add('item');
-          let date = new Date(post.created_at);
-          let year = date.getFullYear();
-          let month = String(date.getMonth() + 1).padStart(2, '0');  // JS에서 월은 0부터 시작합니다.
-          let day = String(date.getDate()).padStart(2, '0');
-          let hours = String(date.getHours()).padStart(2, '0');
-          let minutes = String(date.getMinutes()).padStart(2, '0');
-          let seconds = String(date.getSeconds()).padStart(2, '0');
+    let previousPageUrl = null;
+    let nextPageUrl = 'http://localhost:8000/diary/';
 
-          let imageUrl = post.article_img;
+    function loadData(url, append = true) {
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          const posts = data.results;
 
-          if (imageUrl == null) {
-            // If the post does not have an image, use a default image
-            imageUrl = 'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbFtOx6%2FbtshybehTvK%2F0peatYdJqtR8Tvqfm6K6c1%2Fimg.png';
+          if (!append) {
+            container.innerHTML = '';
           }
 
-          item.innerHTML = `
-            <a href="diary_detail.html?id=${post.id}" data-lightbox="image-1" data-title="${post.title}">
-              <img src="${imageUrl}" alt="${post.title}" />
-              <div class="item-info">
-                <h2>${post.title}</h2>
-                <p>${post.content}</p>
-                <p>${post.user}</p>
-                <p>${date}</p>
-              </div>
-            </a>
-          `;
-          container.appendChild(item);
+          posts.forEach(post => {
+            const item = document.createElement('div');
+            item.classList.add('item');
+            let date = new Date(post.created_at);
+            let year = date.getFullYear();
+            let month = String(date.getMonth() + 1).padStart(2, '0');  // JS에서 월은 0부터 시작합니다.
+            let day = String(date.getDate()).padStart(2, '0');
+            let hours = String(date.getHours()).padStart(2, '0');
+            let minutes = String(date.getMinutes()).padStart(2, '0');
+            let seconds = String(date.getSeconds()).padStart(2, '0');
+            let imageUrl = post.article_img;
+    
+            if (imageUrl == null) {
+              // If the post does not have an image, use a default image
+              imageUrl = 'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbFtOx6%2FbtshybehTvK%2F0peatYdJqtR8Tvqfm6K6c1%2Fimg.png';
+            }
+
+            item.innerHTML = `
+              <a href="diary_detail.html?id=${post.id}" data-lightbox="image-1" data-title="${post.title}">
+                <img src="${imageUrl}" alt="${post.title}" />
+                <div class="item-info">
+                  <h2>${post.title}</h2>
+                  <p>${post.content}</p>
+                  <p>${post.user_nickname}</p>
+                  <p>${date}</p>
+                </div>
+              </a>
+            `;
+            container.appendChild(item);
+          });
+
+          iso = new Isotope( container, {
+            itemSelector: '.item',
+            layoutMode: 'masonry',
+            initLayout: false,
+          });
+
+          imagesLoaded(container).on('always', function() {
+            iso.arrange();
+          });
+
+          previousPageUrl = data.previous;
+          nextPageUrl = data.next;
         });
+    }
 
-        // Initialize Isotope after all items are added
+    loadData(nextPageUrl, false);
 
-        iso = new Isotope( container, {
+    document.querySelector('#previous').addEventListener('click', function() {
+      if (previousPageUrl) {
+        loadData(previousPageUrl, false);
+      }
+    });
 
-          itemSelector: '.item',
-          layoutMode: 'masonry',
-          initLayout: false,
-        });
-
-        // Ensure all images have been loaded before layout
-        imagesLoaded(container).on('always', function() {
-          iso.arrange();
-
-        });
-      });
+    document.querySelector('#next').addEventListener('click', function() {
+      if (nextPageUrl) {
+        loadData(nextPageUrl, false);
+      }
+    });
   </script>
 </body>
-
 </html>
