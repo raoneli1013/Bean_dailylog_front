@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <title>Masonry Layout with Isotope</title>
   <style>
@@ -9,7 +8,6 @@
       width: 90%;
       margin: 0 auto;
     }
-
     .item {
       width: 300px;
       margin-bottom: 20px;
@@ -18,45 +16,64 @@
       position: relative;
       overflow: hidden;
     }
-
     .item img {
       width: 100%;
       height: auto;
     }
-
     .item-info {
       position: absolute;
       top: 0;
       bottom: 0;
       left: 0;
       right: 0;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0,0,0,0.7);
       color: white;
       visibility: hidden;
       opacity: 0;
       transition: visibility 0s, opacity 0.5s linear;
     }
-
     .item:hover .item-info {
       visibility: visible;
       opacity: 1;
     }
-
-    .item-info h2,
-    .item-info p {
+    .item-info h2, .item-info p {
       margin: 20px;
+    }
+    #previous, #next {
+      position: fixed;
+      top: 50%;
+      width: 50px;
+      height: 50px;
+      background-color: rgba(255, 255, 255, 0.8);
+      color: black;
+      text-align: center;
+      line-height: 50px;
+      font-size: 2em;
+      cursor: pointer;
+      opacity: 0.3;
+      transition: opacity 0.2s;
+    }
+    #previous:hover, #next:hover {
+      opacity: 1;
+    }
+    #previous {
+      left: 10px;
+    }
+    #next {
+      right: 10px;
     }
   </style>
 
   <!-- Load lightbox library -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
-
 </head>
-
 <body>
   <div id="container">
     <!-- Items will be added here by JavaScript -->
   </div>
+
+  <div id="previous">&lt;</div>
+  <div id="next">&gt;</div>
 
   <!-- Load Isotope and imagesLoaded libraries -->
   <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
@@ -114,24 +131,23 @@
           `;
         }
           container.appendChild(item);
-        });
-
-        // Initialize Isotope after all items are added
-
-        iso = new Isotope( container, {
-
-          itemSelector: '.item',
-          layoutMode: 'masonry',
-          initLayout: false,
-        });
-
-        // Ensure all images have been loaded before layout
-        imagesLoaded(container).on('always', function() {
-          iso.arrange();
 
         });
-      });
+    }
+
+    loadData(nextPageUrl, false);
+
+    document.querySelector('#previous').addEventListener('click', function() {
+      if (previousPageUrl) {
+        loadData(previousPageUrl, false);
+      }
+    });
+
+    document.querySelector('#next').addEventListener('click', function() {
+      if (nextPageUrl) {
+        loadData(nextPageUrl, false);
+      }
+    });
   </script>
 </body>
-
 </html>
