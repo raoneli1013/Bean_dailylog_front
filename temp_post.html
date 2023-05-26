@@ -35,7 +35,7 @@
       spinner.style.display = 'block';
       submit.disabled = true;
 
-      fetch('http://localhost:8000/diary/images/', {
+      fetch('https://lucedude.link/diary/images/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -58,7 +58,7 @@
           const contentValue = content.value;
           const imageUrl = image.src;
       
-          fetch('http://localhost:8000/diary/', {  // Diary 생성 API endpoint
+          fetch('https://lucedude.link/diary/', {  // Diary 생성 API endpoint
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -78,13 +78,13 @@
       });
 
     function checkTaskStatus(taskId) {
-      fetch('http://localhost:8000/diary/images/' + taskId)
+      fetch('https://lucedude.link/diary/images/' + taskId)
         .then(response => response.json())
         .then(data => {
           if (data.status == 'complete') {
             console.log(data.url)
             spinner.style.display = 'none';
-            image.src = 'http://localhost:8000/' + data.url;
+            image.src = 'https://lucedude.link/' + data.url;
             image.style.display = 'block';
             submit.disabled = false;
           } else {
