@@ -1,8 +1,75 @@
-.category {
-  background-color: bisque;
-  margin: 30px;
-  padding: 50px;
+.vsc-initialized {
+  background-color: #FFF8D6;
 }
+
+.back {
+  background-color: #F7E1AE;
+  width: 50rem;
+  border-radius: 30px;
+  margin: 4rem auto 1rem auto;
+
+}
+
+.Diary_Menu {
+  background-color: #91684A;
+  width: 1rem;
+  margin: auto 25rem auto auto;
+  font-size: 2vw;
+}
+
+.menu {
+  background-color: #A4D0A4;
+  margin: 0px 200px auto 200px;
+  border-radius: 20px;
+  padding-top: 100px;
+}
+
+.category {
+  background-color: #F7E1AE;
+  margin-top: 10px;
+  margin-bottom: 100px;
+  border-radius: 100px;
+}
+
+.todaymood {
+  font-size: 1.5rem;
+  width: 30rem;
+  margin: 0rem auto 0rem auto;
+
+
+}
+
+.tm {
+  margin: 0 auto 0 auto;
+  width: auto;
+  font-size: 2rem;
+}
+
+
+
+.tms {
+  margin: 0 auto 0 auto;
+
+  margin: 2rem; 
+  width: 1.5rem;
+  height: 1.5rem;
+    
+}
+
+#mood {
+  width: 1rem;
+  margin: 0rem auto 0rem auto;
+  
+}
+
+
+
+
+
+
+
+
+
 
 
 /* aria-current="true" */
