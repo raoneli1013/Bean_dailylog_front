@@ -61,10 +61,26 @@ window.onload = async function getDiaryDetail() {
     const imageBox = document.getElementById('image-box');
     const feedImage = document.createElement("img")
     feedImage.setAttribute('class', 'imagecard')
-    // feedImage.setAttribute("src", `${backend_base_url}` + `${response_json['article_img']}`)
+    feedImage.setAttribute("src", `${backend_base_url}` + `${response_json['article_img']}`)
     imageBox.appendChild(feedImage)
 
   }
+
+
+
+  //유저의 좋아요 정보를 확인하기
+  if (localStorage.getItem("payload")) {
+    const payload = JSON.parse(localStorage.getItem("payload"));
+    const userId = payload.user_id;
+    console.log(userId, "페이지 접속유저 아이디")
+
+    //위에 출력한 아이디값이 response_likes 목록안에 있는지
+    response_json.zoayo = response_json.likes.includes(userId);
+  } else {
+    console.log("좋아요 확인중")
+  }
+
+
 
 
   // 댓글 보기
@@ -135,6 +151,7 @@ window.onload = async function getDiaryDetail() {
     // 좋아요 카운트
     $('#likes_count').text(response_json.likes_count);
     $('#bookmark_count').text(response_json.bookmarks_count);
+
   });
 
 }
@@ -208,7 +225,8 @@ async function deleteComment(id) {
 }
 
 
-//좋아요
+
+// 좋아요
 
 async function LikeLike() {
   const response = await fetch(`${backend_base_url}/diary/${diary_id}/likes/`, {
@@ -218,12 +236,31 @@ async function LikeLike() {
     },
     method: 'POST',
   })
+
+  response_json = await response.json()
+  console.log("start", response_json)
+  const like_image = response_json.likes_image
+  console.log(like_image)
+
+
   if (response.status === 200) {
     alert("하튜")
+    // location.reload();
+    if (like_image === true) {
+      like_image.innerText = `♥`;
+    } else if (like_image === false) {
+
+    }
     location.reload();
   }
-
 }
+
+
+
+
+
+
+
 
 async function ClickBookmark() {
   const response = await fetch(`${backend_base_url}/diary/${diary_id}/bookmark/`, {
