@@ -109,12 +109,18 @@ if (currentUser === response_json['user']) {
     if (comment['user'] === currentUser) {
       // 수정하기 버튼 추가
       const editButton = document.createElement('button');
+      editButton.setAttribute('id', 'edit-buttun')
+      editButton.setAttribute('class', 'btn btn-primary')
+      editButton.setAttribute('style', 'background-color: #A4D0A4;')
       editButton.innerText = '수정하기';
       editButton.addEventListener('click', () => editComment(comment['id']));
       commentContainer.appendChild(editButton);
 
       // 삭제 버튼 추가
       const deleteButton = document.createElement('button');
+      deleteButton.setAttribute('id', 'edit-buttun')
+      deleteButton.setAttribute('class', 'btn btn-primary')
+      deleteButton.setAttribute('style', 'background-color: #A4D0A4;')
       deleteButton.innerText = '삭제';
       deleteButton.addEventListener('click', () => deleteComment(comment['id']));
       commentContainer.appendChild(deleteButton);
@@ -135,11 +141,15 @@ if (currentUser === response_json['user']) {
 
     const saveButton = document.createElement('button');
     saveButton.innerText = '저장';
+    saveButton.setAttribute('class', 'btn btn-primary')
+    saveButton.setAttribute('style', 'background-color: #A4D0A4;')
     saveButton.addEventListener('click', () => saveEditedComment(comment['id']));
     editForm.appendChild(saveButton);
 
     const cancelButton = document.createElement('button');
     cancelButton.innerText = '취소';
+    cancelButton.setAttribute('class', 'btn btn-primary')
+    cancelButton.setAttribute('style', 'background-color: #A4D0A4;')
     cancelButton.addEventListener('click', () => cancelEdit(comment['id']));
     editForm.appendChild(cancelButton);
 
