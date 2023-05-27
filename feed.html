@@ -83,11 +83,20 @@
     const container = document.querySelector('#container');
     const payload = JSON.parse(localStorage.getItem('payload'));
     let iso;
-    fetch('http://localhost:8000/diary/')
-      .then(response => response.json())
-      .then(posts => {
-        posts.forEach(post => { 
-          console.log(post)
+    let previousPageUrl = null;
+    let nextPageUrl = 'http://localhost:8000/diary/';
+
+    function loadData(url, append = true) {
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          const posts = data.results;
+
+          if (!append) {
+            container.innerHTML = '';
+          }
+
+          posts.forEach(post => { 
           const item = document.createElement('div');
           item.classList.add('item');
           let date = new Date(post.created_at);
@@ -130,8 +139,21 @@
             </a>
           `;
         }
-          container.appendChild(item);
+            container.appendChild(item);
+          });
 
+          iso = new Isotope( container, {
+            itemSelector: '.item',
+            layoutMode: 'masonry',
+            initLayout: false,
+          });
+
+          imagesLoaded(container).on('always', function() {
+            iso.arrange();
+          });
+
+          previousPageUrl = data.previous;
+          nextPageUrl = data.next;
         });
     }
 
