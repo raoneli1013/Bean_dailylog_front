@@ -1,4 +1,5 @@
 
+
 .feed-container{
     background-color: #FFF8D6;
 }
@@ -22,7 +23,6 @@
     background-color: #FFF8D6;
     margin: auto;
     object-fit: cover
-    
     
 }
 
@@ -75,17 +75,19 @@
 
 #delete-diary-button{
     float: right;
+    color: wheat;
 }
 
 #edit-diary-button{
     float: right;
+    color: wheat;
 }
 
 .like-container{
     background-color: #FFF8D6;
 }
 
-a {
+#bookmark-id {
     background-color: #a4d0a4a4;
 }
 
@@ -109,4 +111,12 @@ a {
 
 #diary_comment{
     background-color: #FFF8D6;
+}
+
+#like_images{
+    background-color: #a4d0a4a4;
+}
+
+#comment-input-button{
+    color: wheat;
 }

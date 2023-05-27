@@ -19,6 +19,7 @@ $(document).ready(function () {
             const payload_parse = JSON.parse(payload);
             console.log(payload_parse.user_id, "네비 id값 출력되는지 확인용");
             intro.innerText = `${payload_parse.nickname}님 안녕하세요`;
+            intro.setAttribute('style', 'color: wheat;')
             intro.href = `${FRONT_BASE_URL}/profile.html`
             // fetch(`${BACK_BASE_URL}/user/` + payload_parse.user_id)
 
@@ -37,14 +38,16 @@ $(document).ready(function () {
 
             //글쓰기 함수
             async function handlecreatearticle() {
-                location.href = '#'
+                location.href = `${FRONT_BASE_URL}/diary_posting.html`
             }
 
             // 로그인시 보이는 로그아웃
             let logoutBtn = document.createElement("button");
             logoutBtn.setAttribute("class", "nav-link btn");
+            logoutBtn.setAttribute("id", "nav-loginout");
             logoutBtn.innerText = "로그아웃";
             logoutBtn.setAttribute("type", "button");
+            logoutBtn.setAttribute('style', 'background-color: rgb(145, 104, 74);')
 
             logoutBtn.addEventListener("click", handleLogout);
 
@@ -53,9 +56,11 @@ $(document).ready(function () {
             let createarticle = document.getElementById("create-article");
             createarticle.innerText = "글쓰기";
             createarticle.setAttribute("class", "nav-link btn")
-            logoutBtn.setAttribute("type", "button");
+            createarticle.setAttribute("id", "nav-create")
+            createarticle.setAttribute("type", "button");
+            createarticle.setAttribute('style', 'background-color: rgb(73, 51, 35)')
 
-            logoutBtn.addEventListener("click", handlecreatearticle);
+            createarticle.addEventListener("click", handlecreatearticle);
 
 
             newLi.appendChild(logoutBtn);
