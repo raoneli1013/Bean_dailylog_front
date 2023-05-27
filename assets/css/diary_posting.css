@@ -1,75 +1,183 @@
-.vsc-initialized {
-  background-color: #FFF8D6;
-}
 
 .back {
   background-color: #F7E1AE;
   width: 50rem;
   border-radius: 30px;
-  margin: 4rem auto 1rem auto;
+  margin: 0rem auto 1rem auto;
 
 }
 
 .Diary_Menu {
+  white-space:nowrap;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 2rem;
   background-color: #91684A;
   width: 1rem;
-  margin: auto 25rem auto auto;
-  font-size: 2vw;
+  margin: auto 28rem auto auto;
 }
 
 .menu {
-  background-color: #A4D0A4;
-  margin: 0px 200px auto 200px;
+  background-color: #FFF8D6;
+  width: 80%;
+  margin: 2rem auto auto auto;
   border-radius: 20px;
-  padding-top: 100px;
+  padding-top: 1rem;
 }
 
-.category {
-  background-color: #F7E1AE;
-  margin-top: 10px;
-  margin-bottom: 100px;
-  border-radius: 100px;
+.category1 {
+  border-radius: 6.25rem;
+  padding-bottom: 2rem;
+  float: left;
+  width: 20%;
+  margin: auto 2.5% auto 2.5%;
+}
+.category2 {
+  border-radius: 6.25rem;
+  float: left;
+  width: 20%;
+  margin: auto 2.5% auto 2.5%;
+}
+.category3 {
+  border-radius: 6.25rem;
+  float: left;
+  width: 20%;
+  margin: auto 2.5% auto 2.5%;
+}
+.category4 {
+  border-radius: 6.25rem;
+  float: left;
+  width: 20%;
+  margin: auto 2.5% auto 2.5%;
 }
 
-.todaymood {
-  font-size: 1.5rem;
-  width: 30rem;
-  margin: 0rem auto 0rem auto;
-
-
-}
-
-.tm {
-  margin: 0 auto 0 auto;
-  width: auto;
+.todaymood, .todayplace, .todayatmosphere, .todayimgst {
+  font-family: 'Dongle', sans-serif;
   font-size: 2rem;
+  width: auto;
+  margin-left: 7rem;
+  text-align: justify;
+}
+
+.tm, .tp, .ta, .is {
+  font-family: 'Dongle', sans-serif;
+  text-decoration: underline;
+  text-decoration-color :#F7E1AE;
+  text-decoration-thickness: 3px;
+  text-underline-position: under;
+
+  margin: 0 auto 0rem auto;
+  width: auto;
+  font-size: 2.5rem;
+  text-align: center;
 }
 
 
 
-.tms {
-  margin: 0 auto 0 auto;
-
-  margin: 2rem; 
+.tms, .tps, .tas, .tis {
+  display: inline-block;
+  float: right;
+  margin-right: 7rem;
   width: 1.5rem;
   height: 1.5rem;
-    
+
 }
 
-#mood {
-  width: 1rem;
+#mood, #place, #atmosphere, #imgstyle {
+  text-align: center;
   margin: 0rem auto 0rem auto;
+  font-family: 'Dongle', sans-serif;
+  font-size: 2.5rem;
+  color: #617A55;
+  background-color: #A4D0A4;
+  width: max-content;
+  height: 2.5rem;
+  border-radius: 5rem;
+}
+
+
+.dir_cont {
+  margin-top: 30rem;
+  padding-bottom: 5rem;
+  text-align: center;  
+}
+
+#open, #diary_private{
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+.oobtn{
+ float: left;
+ width: 35%;
+ font-size: 2rem;
+font-family: 'Dongle', sans-serif;
+}
+
+
+.scbtn {
+  float: right;
+  width: 40%;
+}
+
+.cancel_button {
+  margin-bottom: 1rem;
+}
+
+.submit_button {
+  background-color: rgb(73, 51, 35);
+  color:white;
+  width: 7rem;
+  height: 3rem;
+  font-size: 2rem;
+  font-family: 'Dongle', sans-serif;
+}
+
+.cancel_button {
+  background-color: rgb(145, 104, 74);
+  color:white;
+  width: 7rem;
+  height: 3rem;
+  font-size: 2rem;
+  font-family: 'Dongle', sans-serif;
+}
+
+.dir_img {
+  width: 60rem;
+  height: 30rem;
+  background-color: white;
+}
+
+.ai_img {
+  background-color: #e48c4e;
+  margin-top: 1rem;
+  width: 10rem;
+  height: 3rem;
+  border-radius: 1rem;
+}
+
+.dir {
+  font-size: large;
+  margin-top: 1.5rem;
+  border-radius: 30rem;
+}
+
+.dir_title {
+  font-size: 2rem;
+  font-family: 'Noto Sans KR', sans-serif;
   
 }
 
+.dir_content {
+  font-size: 2rem;
+  font-family: 'Noto Sans KR', sans-serif;
+}
 
+#diary_title {
+  width: 70rem;
+  height: 5rem;
+}
 
-
-
-
-
-
-
-
-
-/* aria-current="true" */
+#diary_content {
+  width: 70rem;
+  height: 20rem;
+}

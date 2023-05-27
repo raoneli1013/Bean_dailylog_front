@@ -110,27 +110,27 @@
             container.innerHTML = '';
           }
 
-          posts.forEach(post => { 
+          posts.forEach(post => {
 
-          const item = document.createElement('div');
-          item.classList.add('item');
-          let date = new Date(post.created_at);
-          let year = date.getFullYear();
-          let month = String(date.getMonth() + 1).padStart(2, '0');  // JS에서 월은 0부터 시작합니다.
-          let day = String(date.getDate()).padStart(2, '0');
-          let hours = String(date.getHours()).padStart(2, '0');
-          let minutes = String(date.getMinutes()).padStart(2, '0');
-          let seconds = String(date.getSeconds()).padStart(2, '0');
+            const item = document.createElement('div');
+            item.classList.add('item');
+            let date = new Date(post.created_at);
+            let year = date.getFullYear();
+            let month = String(date.getMonth() + 1).padStart(2, '0');  // JS에서 월은 0부터 시작합니다.
+            let day = String(date.getDate()).padStart(2, '0');
+            let hours = String(date.getHours()).padStart(2, '0');
+            let minutes = String(date.getMinutes()).padStart(2, '0');
+            let seconds = String(date.getSeconds()).padStart(2, '0');
 
-          let imageUrl = post.article_img;
+            let imageUrl = post.article_img;
 
-          if (imageUrl == null) {
-            // If the post does not have an image, use a default image
-            imageUrl = 'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbFtOx6%2FbtshybehTvK%2F0peatYdJqtR8Tvqfm6K6c1%2Fimg.png';
-          }
+            if (imageUrl == null) {
+              // If the post does not have an image, use a default image
+              imageUrl = 'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbFtOx6%2FbtshybehTvK%2F0peatYdJqtR8Tvqfm6K6c1%2Fimg.png';
+            }
 
-          if ((post.is_private == false) || (post.user == payload.user_id)) {
-            item.innerHTML = `
+            if ((post.is_private == false) || (post.user == payload.user_id)) {
+              item.innerHTML = `
             <a href="diary_detail.html?id=${post.id}" data-lightbox="image-1" data-title="${post.title}">
               <img src="${imageUrl}" alt="${post.title}" />
               <div class="item-info">
@@ -141,8 +141,8 @@
               </div>
             </a>
           `;
-          } else {
-            item.innerHTML = `
+            } else {
+              item.innerHTML = `
             <a href="diary_detail.html?id=${post.id}" data-lightbox="image-1" data-title="${post.title}">
               <img src="${imageUrl}" alt="비공개 글입니다" />
               <div class="item-info">
@@ -153,17 +153,17 @@
               </div>
             </a>
           `;
-        }
+            }
             container.appendChild(item);
           });
 
-          iso = new Isotope( container, {
+          iso = new Isotope(container, {
             itemSelector: '.item',
             layoutMode: 'masonry',
             initLayout: false,
           });
 
-          imagesLoaded(container).on('always', function() {
+          imagesLoaded(container).on('always', function () {
             iso.arrange();
           });
 
@@ -171,7 +171,7 @@
           previousPageUrl = data.previous;
           nextPageUrl = data.next;
         });
-      })
+    }
 
     loadData(nextPageUrl, false);
 
