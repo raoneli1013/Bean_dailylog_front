@@ -1,5 +1,7 @@
 const backend_base_url = "http://127.0.0.1:8000"
 const frontend_base_url = "http://127.0.0.1:5500"
+import { LikeLike, ClickLike } from './diary_api';
+
 
 
 const urlParams = new URLSearchParams(window.location.search);
@@ -11,15 +13,25 @@ window.onload = async function getDiaryDetail() {
   const response = await fetch(`${backend_base_url}/diary/` + diary_id + '/', { // http://127.0.0.1:5500/diary_detail?id=diary_id 형태로 들어감
     method: 'GET'
   })
-  response_json = await response.json()
-  console.log("start", response_json)
+  const payload = JSON.parse(localStorage.getItem('payload'));
 
+  response_json = await response.json()
   const response_user_current = await fetch(`${backend_base_url}/user/dj-rest-auth/user/`, {
     headers: {
       'Authorization': 'Bearer ' + localStorage.getItem("access"),
     },
     method: 'GET',
   });
+
+  // 좋아요한 아이디 안에 user.id가 있으면 채워진 하트를 보여줌
+  // 버튼클릭시 이벤트발생 함수 : 250번줄
+  // 좋아요 카운트 : 165번줄 
+  if (response_json.likes.includes(payload.user_id)) {
+    const likeIcon = document.getElementById("like_icon");
+    likeIcon.innerText = '❤️';
+  } else {
+    likeIcon.innerText = '♡';
+  }
 
   const current_user_data = await response_user_current.json();
   currentUser = current_user_data['pk'];
@@ -39,16 +51,16 @@ window.onload = async function getDiaryDetail() {
   updatedDate.innerText = new Date().toDateString(response_json['updated_date']) + " 수정"
 
   // 수정 및 삭제 버튼 보여주기
-const editDiaryButton = document.getElementById('edit-diary-button');
-const deleteDiaryButton = document.getElementById('delete-diary-button');
+  const editDiaryButton = document.getElementById('edit-diary-button');
+  const deleteDiaryButton = document.getElementById('delete-diary-button');
 
-if (currentUser === response_json['user']) {
-  editDiaryButton.style.display = 'block';
-  deleteDiaryButton.style.display = 'block';
-} else {
-  editDiaryButton.style.display = 'none';
-  deleteDiaryButton.style.display = 'none';
-}
+  if (currentUser === response_json['user']) {
+    editDiaryButton.style.display = 'block';
+    deleteDiaryButton.style.display = 'block';
+  } else {
+    editDiaryButton.style.display = 'none';
+    deleteDiaryButton.style.display = 'none';
+  }
 
   // user 정보
   const response_user = await fetch(`${backend_base_url}` + '/user/' + response_json['user'] + '/', {
@@ -57,8 +69,8 @@ if (currentUser === response_json['user']) {
   author = await response_user.json()
   const nickname = document.getElementById('nickname')
   nickname.innerText = "닉네임 : " + author['nickname']
-  console.log("??",response_json)
-  
+  console.log("??", response_json)
+
 
 
   //key값에 image가 들어왔는지 확인
@@ -79,6 +91,8 @@ if (currentUser === response_json['user']) {
     imageBox.appendChild(feedImage)
 
   }
+
+
 
 
   // 댓글 보기
@@ -155,12 +169,13 @@ if (currentUser === response_json['user']) {
 
     diaryComment.appendChild(editForm);
 
-    
+
 
     // console.log("start", response_json)
     // 좋아요 카운트
     $('#likes_count').text(response_json.likes_count);
     $('#bookmark_count').text(response_json.bookmarks_count);
+
   });
 
 }
@@ -243,22 +258,88 @@ async function deleteComment(id) {
 }
 
 
-//좋아요
 
-async function LikeLike() {
-  const response = await fetch(`${backend_base_url}/diary/${diary_id}/likes/`, {
-    headers: {
-      "Authorization": "Bearer " + localStorage.getItem("access"),
-      'content-type': 'application/json',
-    },
-    method: 'POST',
-  })
-  if (response.status === 200) {
-    alert("하튜")
-    location.reload();
+// 좋아요 클릭시 이벤트 발생
+const likeButtonClick = document.querySelector('#like_images')
+
+likeButtonClick.addEventListener('click', async function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  const DIARY_ID = urlParams.get('diary_id');
+
+  // 좋아요 상태 업데이트
+  await LikeLike(diary_id);
+
+  //diary 정보 다시 가져오기
+  const diary = await getDiaryDetail(diary_id);
+
+  //좋아요 여부에 따라 하트 변경
+  if (response_json.likes.includes(payload.user_id)) {
+    const likeIcon = document.getElementById("like_icon");
+    likeIcon.innerText = '❤️';
+  } else {
+    likeIcon.innerText = '♡';
   }
+});
 
-}
+
+
+// //좋아요 -> diary_api.js로 이동
+
+// export async function LikeLike() {
+//   const response = await fetch(`${backend_base_url}/diary/${diary_id}/likes/`, {
+//     headers: {
+//       "Authorization": "Bearer " + localStorage.getItem("access"),
+//       'content-type': 'application/json',
+//     },
+//     method: 'POST',
+//   })
+
+//   response_json = await response.json()
+//   console.log("start", response_json)
+//   const like_image = response_json.likes_image
+//   console.log(like_image)
+
+
+//   if (response.status === 200) {
+//     alert("하튜")
+//     if (like_image === true) {
+//     } else if (like_image === false) {
+
+//     }
+//     location.reload();
+//   }
+// }
+
+// // 준열님 코드 참고해서 다시작성
+// // 로그인이 안되어서 제대로 실행되는지 알 수 없는 상태라 약간 안전빵 느낌으로 
+// // 준열님 코드를 클론코딩해보았습니다.. -소진
+// export async function ClickLike(diary_id) {
+//   const url = `${BACK_BASE_URL}/diary/${diary_id}/likes/`;
+//   try {
+//     const response = await fetch(url, {
+//       method: "POST",
+//       headers: {
+//         Authorization: `Bearer` + localStorage.getItem("access"),
+//         'content-type': 'application/json',
+//       },
+//     });
+
+//     if (!response.ok) {
+//       throw new Error("Request failed");
+//     }
+
+//     console.log("Request succeeded");
+//   } catch (error) {
+//     console.error("Request failed:", error.message);
+//   }
+// }
+
+
+
+
+
+
+
 
 async function ClickBookmark() {
   const response = await fetch(`${backend_base_url}/diary/${diary_id}/bookmark/`, {
