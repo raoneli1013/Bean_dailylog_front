@@ -1,0 +1,44 @@
+
+.login-container{
+    margin: auto;
+    width: 100%;
+    border-radius: 5px;
+    text-align: center;
+    padding: 20px;
+    padding-top: 65px;
+    }
+
+.login-text{
+    text-align: center;
+    font-size: 30px;
+    
+}
+
+.login-box{
+    margin: auto;
+    width: 50%;
+    border-radius: 5px;
+    text-align: center;
+    padding: 20px;
+    background-color:#FFF8D6; 
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: none;
+}
+
+#login-submit{
+    color: white;
+} 
+
+#google-login{
+    color: wheat;
+}
+
+.link-success{
+    text-decoration-line: none;
+}    

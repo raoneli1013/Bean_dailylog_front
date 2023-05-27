@@ -1,6 +1,6 @@
 const backend_base_url = "http://127.0.0.1:8000"
 const frontend_base_url = "http://127.0.0.1:5500"
-import { LikeLike, ClickLike } from './diary_api';
+// import { LikeLike, ClickLike } from './diary_api';
 
 
 
@@ -26,14 +26,15 @@ window.onload = async function getDiaryDetail() {
   // 좋아요한 아이디 안에 user.id가 있으면 채워진 하트를 보여줌
   // 버튼클릭시 이벤트발생 함수 : 250번줄
   // 좋아요 카운트 : 165번줄 
-  if (response_json.likes.includes(payload.user_id)) {
-    const likeIcon = document.getElementById("like_icon");
-    likeIcon.innerText = '❤️';
-  } else {
-    likeIcon.innerText = '♡';
-  }
+  // if (response_json.likes.includes(payload.user_id)) {
+  //   const likeIcon = document.getElementById("like_icon");
+  //   likeIcon.innerText = '❤️';
+  // } else {
+  //   likeIcon.innerText = '♡';
+  // }
 
   const current_user_data = await response_user_current.json();
+  console.log("corrunt",response_user_current)
   currentUser = current_user_data['pk'];
 
 
@@ -68,7 +69,7 @@ window.onload = async function getDiaryDetail() {
   })
   author = await response_user.json()
   const nickname = document.getElementById('nickname')
-  nickname.innerText = "닉네임 : " + author['nickname']
+  nickname.innerText = "작성자 닉네임 : " + author['nickname']
   console.log("??", response_json)
 
 
@@ -87,7 +88,7 @@ window.onload = async function getDiaryDetail() {
     const imageBox = document.getElementById('image-box');
     const feedImage = document.createElement("img")
     feedImage.setAttribute('class', 'imagecard')
-    feedImage.setAttribute("src", `${backend_base_url}` + `${response_json['article_img']}`)
+    feedImage.setAttribute("src", `${response_json['article_img']}`)
     imageBox.appendChild(feedImage)
 
   }
@@ -123,12 +124,18 @@ window.onload = async function getDiaryDetail() {
     if (comment['user'] === currentUser) {
       // 수정하기 버튼 추가
       const editButton = document.createElement('button');
+      editButton.setAttribute('id', 'edit-buttun')
+      editButton.setAttribute('class', 'btn btn-primary')
+      editButton.setAttribute('style', 'background-color:rgb(73, 51, 35);')
       editButton.innerText = '수정하기';
       editButton.addEventListener('click', () => editComment(comment['id']));
       commentContainer.appendChild(editButton);
 
       // 삭제 버튼 추가
       const deleteButton = document.createElement('button');
+      deleteButton.setAttribute('id', 'edit-buttun')
+      deleteButton.setAttribute('class', 'btn btn-primary')
+      deleteButton.setAttribute('style', 'background-color: rgb(145, 104, 74)')
       deleteButton.innerText = '삭제';
       deleteButton.addEventListener('click', () => deleteComment(comment['id']));
       commentContainer.appendChild(deleteButton);
@@ -149,11 +156,15 @@ window.onload = async function getDiaryDetail() {
 
     const saveButton = document.createElement('button');
     saveButton.innerText = '저장';
+    saveButton.setAttribute('class', 'btn btn-primary')
+    saveButton.setAttribute('style', 'background-color:rgb(73, 51, 35);')
     saveButton.addEventListener('click', () => saveEditedComment(comment['id']));
     editForm.appendChild(saveButton);
 
     const cancelButton = document.createElement('button');
     cancelButton.innerText = '취소';
+    cancelButton.setAttribute('class', 'btn btn-primary')
+    cancelButton.setAttribute('style', 'background-color: rgb(145, 104, 74)')
     cancelButton.addEventListener('click', () => cancelEdit(comment['id']));
     editForm.appendChild(cancelButton);
 
