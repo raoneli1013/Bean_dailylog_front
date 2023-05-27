@@ -121,6 +121,7 @@
             container.innerHTML = '';
           }
 
+
           posts.forEach(post => { 
 
           const item = document.createElement('div');
@@ -152,6 +153,7 @@
               </div>
             </a>
           `;
+
           } else {
             item.innerHTML = `
             <a href="diary_detail.html?id=${post.id}"="image-1" data-title="${post.title}">
@@ -164,17 +166,17 @@
               </div>
             </a>
           `;
-        }
+            }
             container.appendChild(item);
           });
 
-          iso = new Isotope( container, {
+          iso = new Isotope(container, {
             itemSelector: '.item',
             layoutMode: 'masonry',
             initLayout: false,
           });
 
-          imagesLoaded(container).on('always', function() {
+          imagesLoaded(container).on('always', function () {
             iso.arrange();
           });
 
@@ -183,6 +185,7 @@
           nextPageUrl = data.next;
         });
       }
+
 
     loadData(nextPageUrl, false);
 
