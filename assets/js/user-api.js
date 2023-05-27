@@ -62,33 +62,33 @@ export async function handleLogin() {
   if (response.ok){
     alert("로그인 완료!");
     const response_json = await response.json()
-  
+
     localStorage.setItem("access", response_json.access)
     localStorage.setItem("refresh", response_json.refresh)
-  
+
     const base64Url = response_json.access.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
     const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
-  
+
     // 기존 payload 객체 생성 후 user_id로 정보요청
     const payloadObj = JSON.parse(jsonPayload);
     const userId = payloadObj.user_id
     const response_get_user = await fetch(`${BACK_BASE_URL}/user/${userId}/`, {
       method: "GET",
     })
-  
+
     // 사용자 정보 객체 생성 후 기존 payload에 추가할 속성 할당
     const response_user_json = await response_get_user.json();
     payloadObj.profile_img = response_user_json.profile_img;
     payloadObj.introduction = response_user_json.introduction;
     payloadObj.nickname = response_user_json.nickname;
     payloadObj.email = response_user_json.email;
-  
+
     // 업데이트된 payload를 문자열로 변환
     const updatedPayload = JSON.stringify(payloadObj);
-  
+
     localStorage.setItem("payload", updatedPayload);
     window.location.href = `${FRONT_BASE_URL}/feed.html`
   } else{
@@ -103,7 +103,7 @@ export async function handleLogin() {
 
 
 
-  
+
 }
 
 async function getProfile() {
@@ -121,4 +121,3 @@ export async function handlegoogleLogin() {
     method: "GET",
   })
 };
-

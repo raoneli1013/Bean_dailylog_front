@@ -28,8 +28,8 @@
                                     <h4 id="title"></h4>
                                     <div id="image-box"></div>
                                     <p id="content"></p>
-                                    <button id="edit-diary-button" type="button" onclick="editDiary()">수정</button>>
-                                    <button id="delete-diary-button" type="button" onclick="deleteDiary()">삭제</button>>
+                                    <button id="edit-diary-button" type="button" class="btn btn-outline-secondary" style="background-color: rgb(73, 51, 35)" onclick="editDiary()">수정</button>
+                                    <button id="delete-diary-button" type="button" class="btn btn-outline-secondary" style="background-color: rgb(145, 104, 74);" onclick="deleteDiary()">삭제</button>
                                 </div>
                                 <div class="like-container">
                                     <!-- 좋아요 버튼 만들기 -->
@@ -45,7 +45,7 @@
                                         <span id="likes_count" style="text-decoration: none;">좋아요 수</span>
                                     </div>
                                     <div class="card text-center" style="border:none">
-                                        <a href="#" onclick="ClickBookmark()"
+                                        <a id="bookmark-id" href="#" onclick="ClickBookmark()"
                                             style="text-decoration: none;">bookmark</a>
                                         <span id="bookmark_count" style="text-decoration: none;">북마크 수</span>
                                     </div>
@@ -62,26 +62,20 @@
             </div>
         </div>
     </div>
-    <h1>댓글</h1>
+    <span class="comment-view">한마디 남겨주세요~! </span>
     <div class="main-box">
         <div>
             <input type="text" id="comment-content" placeholder="댓글을 입력하세요.">
-            <button type="button" onclick="inputComment()">댓글 작성</button>
+            <button id="comment-input-button" type="button" class="btn btn-outline-secondary" style="background-color: rgb(145, 104, 74);" onclick="inputComment()">댓글 작성</button>
             <div id="diary_comment">
                 <!-- 댓글이 생성되는 곳 -->
             </div>
-        </div>
-        <!-- 댓글 수정 버튼 누르면 보이는 곳 -->
-        <div id="edit-comment-form" style="display: none;">
-            <input type="text" id="edit-comment-content" placeholder="수정할 내용을 입력하세요.">
-            <button type="button" onclick="saveEditedComment()">저장</button>
-            <button type="button" onclick="cancelEdit()">취소</button>
         </div>
         <ul id="comment-list"></ul>
     </div>
     <!-- 하단 푸터 시작-->
     <div id="footer-container"></div>
-    <!-- 하단 푸터 끝-->
+    <!-- 하단 푸터 끝-->s
 
     <script src="./assets/js/diary_detail.js"></script>
     <script src="/assets/js/nav.js"></script>
