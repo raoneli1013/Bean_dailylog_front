@@ -37,7 +37,7 @@ window.onload = async function getDiaryDetail() {
   // }
 
   const current_user_data = await response_user_current.json();
-  console.log("corrunt",response_user_current)
+  console.log("corrunt", response_user_current)
   currentUser = current_user_data['pk'];
 
 

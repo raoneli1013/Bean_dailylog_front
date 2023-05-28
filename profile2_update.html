@@ -8,8 +8,14 @@
 
     <!-- Bootstrap CDN -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="module" src="/assets/js/user-api.js"></script>
+    <script src="/assets/js/profile_api.js"></script>
+    <script src="/assets/js/nav.js"></script>
+    <script src="/assets/js/profile.js"></script>
+    <!-- <script src="/assets/js/profile_update.js"></script> -->
+    <script src="/assets/js/footer.js"></script>
+
     <link rel="stylesheet" href="./assets/css/profile2.css">
     <style>
 
@@ -17,44 +23,11 @@
 </head>
 
 <body>
+
     <!-- 상단 네비게이션바 -->
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(255, 238, 217);">
-        <div class="container px-4 px-lg-5">
-            <!-- {% if user.is_authenticated %} -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-                <ul class="navbar-nav me-auto">
-                    <li id="create-article" class="nav-item"><a class="nav-link btn me-2 btn_org"
-                            href="create_article.html"></a></li>
-                </ul>
-
-                <a href="/" class="me-auto navbar-brand"><img src="./assets/images/diary.png" alt="상단로고" width="150">My
-                    CoffeeBean Diary</a>
-                <form class="form-inline my-2 my-lg-0">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                        </li>
-                    </ul>
-                    <ul id="navbar-right" class="navbar-nav mr-auto">
-                        <li class="nav-item disable">
-
-                            <!-- 로그인시 회원 로그인 정보를 보여줌 : 닉네임 누르면 마이페이지 -->
-                            <a id="intro" class="nav-link btn me-2 btn_org" href="/"></a>
-                        </li>
-                        <!-- 로그인과 회원가입 버튼 -->
-                        <li class="nav-item disable"><a id="login-btn" class="nav-link btn me-2 btn_org"
-                                href="./login.html"> 로그인 <span class="sr-only"></span></a></li>
-                        <li class="nav-item disable"><a id="signup-btn" class="nav-link btn me-2 btn_gr"
-                                href="./signup.html"> 회원가입 <span class="sr-only"></span></a></li>
-                        </li>
-                    </ul>
-            </div>
-        </div>
-    </nav>
+    <div id="navbar-container"></div>
     <!-- 상단 네비게이션 끝-->
+
 
     <div class="container emp-profile">
         <form method="post">
@@ -62,24 +35,20 @@
                 <div class="col-md-4">
                     <div class="profile-img">
                         <div class="image-container">
-                            <!-- <div class="col align-self-center text-center" style="background-color: #0067a3;">프로필 이미지
-                        </div> -->
                             <div id="profile-image" class="col card align-self-center">
                                 <img id="img" src="#" alt="이미지 미리보기" style="max-width : 350px">
                             </div>
-                            <input type="file" id="image-input" class="hidden overlay"></input>
+                            <input type="file" id="image-input" class="overlay"></input>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="profile-head">
                         <h5>
-                            <input type="text" class="form-control form-control-sm hidden" id="myNickname"
-                                placeholder="닉네임">
-                            <span id="nickname" class="original-content">nickname</span>
+                            <textarea id="nickname" class="original-content" placeholder="새로운 닉네임을 입력해주세요"></textarea>
                         </h5>
                         <h6>
-                            <span id="introduction">소개를 입력해주세요</span>
+                            <textarea id="introduction" placeholder="새로운 소개를 입력해주세요"></textarea>
                         </h6>
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item">
@@ -89,13 +58,12 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-2 permission">
-                    <!-- <button id="edit-btn" class="btn btn" name="btnAddMore" value="Edit Profile"
-                        onclick="redirectUpdatePage()"
-                        style="background-color: rgb(73, 51, 35); color:white;">수정</button> -->
-                    <button id="cancel-btn" class="hidden btn btn-secondary" onclick="ProfileNoUpdate()">취소</button>
-                    <button class="hidden btn btn btn-dark" id="confirm-btn" onclick="ProfileUpdate()">완료</button>
-                </div>
+
+                <button id="cancel-btn" type="button" class="btn btn"
+                    style="background-color: rgb(73, 51, 35); color:white;" onclick="ProfileNoUpdate()">취소</button>
+                <button type="button" id="confirm-btn" class="btn btn"
+                    style="background-color: rgb(73, 51, 35); color:white;" onclick="ProfileUpdate()">완료</button>
+
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-work">
@@ -163,58 +131,10 @@
     </div>
     </div>
     <!-- 하단 푸터 시작-->
-    <div class="text-center mt-5 mb-0" Id="footer-container">
-        <footer class="py-5 bg-dark">
-            <h3 class="m-0 text-center text-white">coffee machine</h3>
-            <div class="container">
-                <div class="jumbotron text-center mt-5 mb-0" style="background-color: #343a40;">
-                    <div class="mem_list">
-                        <p class="m-0 text-center text-white">박소진 :<a
-                                href="https://right-otter-1b4.notion.site/Sparta-f505fc85ac5145fe9104a6e2abef444d"
-                                class="m-0 text-center text-white" style="text-decoration:none">노션</a> <a
-                                href="https://github.com/jinyjin7/MyAnimal/tree/main" class="m-0 text-center text-white"
-                                style="text-decoration:none">깃허브
-                            </a>
-                        </p>
-                        <p class="m-0 text-center text-white">김성광 :<a href="https://scarlet0star.tistory.com/"
-                                class="m-0 text-center text-white" style="text-decoration:none">블로그</a> <a
-                                href="https://github.com/scarlet0star" class="m-0 text-center text-white"
-                                style="text-decoration:none">깃허브
-                            </a>
-                        </p>
-                        <p class="m-0 text-center text-white">나명흠 :<a href="https://velog.io/@develheum"
-                                class="m-0 text-center text-white" style="text-decoration:none">블로그</a> <a
-                                href="https://github.com/rlfrhdiddl" class="m-0 text-center text-white"
-                                style="text-decoration:none">깃허브
-                            </a>
-                        </p>
-                        <p class="m-0 text-center text-white">윤준열 :<a href="https://raoneli-coding.tistory.com/"
-                                class="m-0 text-center text-white" style="text-decoration:none">블로그</a> <a
-                                href="https://github.com/raoneli1013" class="m-0 text-center text-white"
-                                style="text-decoration:none">깃허브
-                            </a>
-                        </p>
-                        <p class="m-0 text-center text-white">임재훈 :<a href="https://github.com/imjanny?tab=repositories"
-                                class="m-0 text-center text-white" style="text-decoration:none">깃허브
-                            </a>
-                        </p><br>
-                        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p>
-                        <a href="/"><img src="./assets/images/diary.png" alt="상단로고" width="150"></a>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    </div>
+    <div id="footer-container"></div>
     <!-- 하단 푸터 끝-->
 </body>
 
 </body>
-<script src="/assets/js/user-api.js"></script>
-<script src="/assets/js/profile_api.js"></script>
-<script src="/assets/js/nav.js"></script>
-<script src="/assets/js/profile.js"></script>
-<!-- <script src="/assets/js/profile_update.js"></script> -->
-<script src="/assets/js/footer.js"></script>
-
 
 </html>
