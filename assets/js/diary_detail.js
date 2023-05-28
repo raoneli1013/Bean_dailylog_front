@@ -1,5 +1,5 @@
-const backend_base_url = "http://127.0.0.1:8000"
-// const backend_base_url = "https://lucedude.link"
+// const backend_base_url = "http://127.0.0.1:8000"
+const backend_base_url = "https://lucedude.link"
 const frontend_base_url = "http://127.0.0.1:5500"
 // import { LikeLike, ClickLike } from './diary_api';
 
@@ -35,7 +35,7 @@ window.onload = async function getDiaryDetail() {
   // }
 
   const current_user_data = await response_user_current.json();
-  console.log("corrunt",response_user_current)
+  console.log("corrunt", response_user_current)
   currentUser = current_user_data['pk'];
 
 

@@ -3,40 +3,40 @@ const backend_base_url = "http://127.0.0.1:8000"
 
 
 /* 게시글 생성하기 */
-async function creatediary(){
+async function creatediary() {
   const formData = new FormData();
 
   const title = document.getElementById("diary_title").value
   const content = document.getElementById("diary_content").value
 
-  formData.append( "title", title );
-  formData.append( "content", content );
+  formData.append("title", title);
+  formData.append("content", content);
 
   let token = localStorage.getItem("access")
-  
+
   const response = await fetch(`${backend_base_url}/diary/`, {
-        method: 'POST',
-        headers: {
-          "Authorization":`Bearer ${token}`
-        },
-        body: formData
+    method: 'POST',
+    headers: {
+      "Authorization": `Bearer ${token}`
+    },
+    body: formData
   })
 
   if (response.status == 201) {
-      alert("diary 생성 완료")
-      window.location.replace(`${frontend_base_url}/feed.html`)
-  }else{
+    alert("diary 생성 완료")
+    window.location.replace(`${frontend_base_url}/feed.html`)
+  } else {
     alert(`${response.status}\n제목과 내용을 모두 입력하세요`)
   }
 }
-  
+
 
 // 이미지 옵션 선택하기
 let list = []; // list 전역변수 선언
 
-async function moodChoice(event){
-  document.getElementById('mood').innerText = 
-  event.target.value;
+async function moodChoice(event) {
+  document.getElementById('mood').innerText =
+    event.target.value;
   const mood = document.getElementById('mood').innerText
 
   const index = list.indexOf(mood); //중복제거
@@ -53,9 +53,9 @@ async function moodChoice(event){
 
 }
 
-async function placeChoice(event){
-  document.getElementById('place').innerText = 
-  event.target.value;
+async function placeChoice(event) {
+  document.getElementById('place').innerText =
+    event.target.value;
   const place = document.getElementById('place').innerText
 
   // list = [place];
@@ -73,13 +73,13 @@ async function placeChoice(event){
 
 }
 
-async function atmosphereChoice(event){
-  document.getElementById('atmosphere').innerText = 
-  event.target.value;
+async function atmosphereChoice(event) {
+  document.getElementById('atmosphere').innerText =
+    event.target.value;
   const atmosphere = document.getElementById('atmosphere').innerText
 
   // list = [atmosphere];
-  
+
   const index = list.indexOf(atmosphere);
   if (index > -1) {
     list.splice(index, 1);
@@ -93,13 +93,13 @@ async function atmosphereChoice(event){
 
 }
 
-async function imgstyleChoice(event){
-  document.getElementById('imgstyle').innerText = 
-  event.target.value;
+async function imgstyleChoice(event) {
+  document.getElementById('imgstyle').innerText =
+    event.target.value;
   const imgstyle = document.getElementById('imgstyle').innerText
 
   // list = [imgstyle];
-  
+
   const index = list.indexOf(imgstyle);
   if (index > -1) {
     list.splice(index, 1);
@@ -125,27 +125,27 @@ async function imgstyleChoice(event){
 
 // AI이미지 불러오기
 
-async function createImg(){
+async function createImg() {
   const formdata = new FormData();
 
   const prompt = list
 
-  formdata.append("prompt",prompt)
+  formdata.append("prompt", prompt)
   console.log(prompt)
 
   let token = localStorage.getItem("access")
 
-  const response = await fetch(`${backend_base_url}/diary/images/`,{
+  const response = await fetch(`${backend_base_url}/diary/images/`, {
     method: 'POST',
     headers: {
-      "Authorization":`Bearer ${token}`
+      "Authorization": `Bearer ${token}`
     },
     body: formdata
   })
-console.log(prompt)
+  console.log(prompt)
 }
 
-async function cancel(){
+async function cancel() {
   window.location.replace(`${frontend_base_url}/feed.html`)
 }
 
@@ -164,7 +164,7 @@ async function checkPrivate(event, diary_private) {
 
   const isPrivate = document.getElementById("diary_private").checked;
   document.getElementById("private").value = isPrivate;
-  
+
   if (document.getElementById("private").value === "true") {
     event.preventDefault(); // 비공개 다이어리면 우선 상세페이지로 이동을 막음
     const formData = new FormData();

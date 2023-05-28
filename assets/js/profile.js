@@ -1,17 +1,17 @@
 // const frontend_base_url = "https://jinyjin7.github.io/"
 // const backend_base_url = "https://lucedude.link"
-const backend_base_url = "http://127.0.0.1:5500"
-const frontend_base_url = "http://127.0.0.1:8000"
+// // const backend_base_url = "http://127.0.0.1:5500"
+// const frontend_base_url = "http://127.0.0.1:8000"
 
 // console.log("마이페이지다마")
 const payload = localStorage.getItem("payload");
 const payload_parse = JSON.parse(payload);
 const users_id = payload_parse.user_id
-// console.log(payload_parse.user_id)
-// console.log(users_id)
+console.log(payload_parse.user_id)
+console.log(users_id)
 
 async function getProfile() {
-    const response = await fetch(`${backend_base_url}/${users_id}`, {
+    const response = await fetch(`https://lucedude.link/user/${users_id}`, {
         headers: {
             "Authorization": "Bearer" + localStorage.getItem("access")
         },
@@ -44,7 +44,7 @@ window.onload = async function loadProfile() {
     if (profile.profile_img == '' || profile.profile_img == null || typeof profile.profile_img === 'undefined') {
         $('#img').attr('src', './assets/images/diary.png');
     } else {
-        $('#img').attr('src', `${backend_base_url}${profile.profile_img}`);
+        $('#img').attr('src', `https://lucedude.link${profile.profile_img}`);
     }
 
     //닉네임, 이메일, 내가 작성한 글, 내가 좋아요한 글, 북마크한 글, 팔로잉, 팔로워 표기
@@ -75,7 +75,7 @@ window.onload = async function loadProfile() {
     // 팔로워 버튼 누를시 팔로우 , 본인은 팔로우 못함
     document.querySelector('#follow-btn').addEventListener('click', async function () {
         try {
-            const response = await fetch(`${backend_base_url}/user/follow/${users_id}/`, {
+            const response = await fetch(`https://lucedude.link.link/user/follow/${users_id}/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -109,7 +109,7 @@ window.onload = async function loadProfile() {
 // 회원탈퇴
 async function UserDelete() {
     if (confirm("삭제하시겠습니까?")) {
-        const response = await fetch(`${backend_base_url}/user/`, {
+        const response = await fetch(`https://lucedude.link/user/`, {
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("access"),
                 'content-type': 'application/json',
