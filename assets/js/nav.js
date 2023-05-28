@@ -1,4 +1,5 @@
-const BACK_BASE_URL = "http://127.0.0.1:8000";
+// const BACK_BASE_URL = "http://127.0.0.1:8000";
+const BACK_BASE_URL = "https://lucedude.link"
 const FRONT_BASE_URL = "http://127.0.0.1:5500";
 
 
@@ -38,7 +39,7 @@ $(document).ready(function () {
 
             //글쓰기 함수
             async function handlecreatearticle() {
-                location.href = `${FRONT_BASE_URL}/diary_posting.html`
+                location.href = `${FRONT_BASE_URL}/temp_post.html`
             }
 
             // 로그인시 보이는 로그아웃
