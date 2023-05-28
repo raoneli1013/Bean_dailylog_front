@@ -108,8 +108,8 @@
           });
 
 
-          previousPageUrl = data.previous;
-          nextPageUrl = data.next;
+          previousPageUrl = data.previous.replace("http://", "https://");
+          nextPageUrl = data.next.replace("http://", "https://");
         });
     }
     loadData(nextPageUrl, false);
