@@ -59,7 +59,7 @@ export async function handleLogin() {
       "password": password
     })
   })
-  if (response.ok){
+  if (response.ok) {
     alert("로그인 완료!");
     const response_json = await response.json()
 
@@ -79,6 +79,7 @@ export async function handleLogin() {
       method: "GET",
     })
 
+
     // 사용자 정보 객체 생성 후 기존 payload에 추가할 속성 할당
     const response_user_json = await response_get_user.json();
     payloadObj.profile_img = response_user_json.profile_img;
@@ -91,15 +92,15 @@ export async function handleLogin() {
 
     localStorage.setItem("payload", updatedPayload);
     window.location.href = `${FRONT_BASE_URL}/feed.html`
-  } else{
+  } else {
     const responseData = await response.json();
-      // 키/값 alert으로 출력
-      for (let key in responseData) {
-        if (responseData.hasOwnProperty(key)) {
-          alert(key + ": " + responseData[key]);
-        }
+    // 키/값 alert으로 출력
+    for (let key in responseData) {
+      if (responseData.hasOwnProperty(key)) {
+        alert(key + ": " + responseData[key]);
+      }
+    }
   }
-}
 
 
 

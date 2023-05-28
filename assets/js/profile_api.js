@@ -1,3 +1,9 @@
+const frontend_base_url = "https://jinyjin7.github.io/"
+const backend_base_url = "https://lucedude.link"
+const local_backend_base_url = "http://127.0.0.1:5500"
+const local_frontend_base_url = "http://127.0.0.1:8000"
+
+
 console.log("프로필 api")
 
 // 수정버튼으로 수정폼으로 이동
