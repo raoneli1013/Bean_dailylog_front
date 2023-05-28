@@ -23,6 +23,7 @@ window.onload = async function getDiaryDetail() {
       'Authorization': 'Bearer ' + localStorage.getItem("access"),
     },
     method: 'GET',
+    
   });
 
   // 좋아요한 아이디 안에 user.id가 있으면 채워진 하트를 보여줌
