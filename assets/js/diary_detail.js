@@ -1,7 +1,7 @@
-const backend_base_url = "http://127.0.0.1:8000"
-const frontend_base_url = "http://127.0.0.1:5500"
-// const backend_base_url = "https://lucedude.link" // 서버 주소
-// const frontend_base_url = "https://jinyjin7.github.io" //깃허브 페이지 주소
+// const backend_base_url = "http://127.0.0.1:8000"
+// const frontend_base_url = "http://127.0.0.1:5500"
+const backend_base_url = "https://lucedude.link" // 서버 주소
+const frontend_base_url = "https://jinyjin7.github.io" //깃허브 페이지 주소
 // import { LikeLike, ClickLike } from './diary_api';
 
 
@@ -36,7 +36,7 @@ window.onload = async function getDiaryDetail() {
   // }
 
   const current_user_data = await response_user_current.json();
-  console.log("corrunt",response_user_current)
+  console.log("corrunt", response_user_current)
   currentUser = current_user_data['pk'];
 
 

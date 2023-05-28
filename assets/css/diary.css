@@ -1,0 +1,162 @@
+body {
+  background-color: #F7E1AE;
+  font-family: Arial, sans-serif;
+}
+
+#menu .back {
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  padding: 100px;
+  margin-bottom: 20px;
+}
+
+.Diary_Menu {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.tm {
+  font-size: 18px;
+  margin-top: 40px;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.tms {
+  width: 100%;
+  height: 100px;
+}
+
+.dir {
+  padding: 40px;
+
+}
+
+.dir_cont {
+  flex-direction: column;
+  align-items: center;
+}
+
+#title {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#content {
+  width: 100%;
+  height: 200px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+#generate,
+#submit {
+  cursor: pointer;
+  padding: 10px 20px;
+  margin-top: 20px;
+  background-color: #FFFFFF;
+  border: none;
+  border-radius: 5px;
+}
+
+#generate:hover,
+#submit:hover {
+  background-color: #EAEAEA;
+}
+
+#spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+}
+
+#image {
+  max-width: 100%;
+  height: auto;
+}
+
+label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+[type="checkbox"] {
+  appearance: none;
+  position: relative;
+  border: max(2px, 0.1em) solid gray;
+  border-radius: 1.25em;
+  width: 2.25em;
+  height: 1.25em;
+}
+
+[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  transform: scale(0.8);
+  background-color: gray;
+  transition: left 250ms linear;
+}
+
+[type="checkbox"]:checked {
+  background-color: tomato;
+  border-color: tomato;
+}
+
+[type="checkbox"]:checked::before {
+  background-color: white;
+  left: 1em;
+}
+
+[type="checkbox"]:disabled {
+  border-color: lightgray;
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+[type="checkbox"]:disabled:before {
+  background-color: lightgray;
+}
+
+[type="checkbox"]:disabled+span {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+[type="checkbox"]:focus-visible {
+  outline-offset: max(2px, 0.1em);
+  outline: max(2px, 0.1em) solid tomato;
+}
+
+[type="checkbox"]:enabled:hover {
+  box-shadow: 0 0 0 max(4px, 0.2em) lightgray;
+}
+
+/* Global CSS */
+body {
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+fieldset {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
