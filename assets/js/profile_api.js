@@ -1,7 +1,7 @@
-const frontend_base_url = "https://jinyjin7.github.io/"
-const backend_base_url = "https://lucedude.link"
-const local_backend_base_url = "http://127.0.0.1:5500"
-const local_frontend_base_url = "http://127.0.0.1:8000"
+// const frontend_base_url = "https://jinyjin7.github.io/"
+// const backend_base_url = "https://lucedude.link"
+const backend_base_url = "http://127.0.0.1:5500"
+const frontend_base_url = "http://127.0.0.1:8000"
 
 
 console.log("프로필 api")
@@ -22,7 +22,7 @@ function ProfileNoUpdate() {
 //원래 반영되어있던 내용을 가져와서 보여줌
 async function BeforeProfile(user_id) {
 
-    const response = await fetch(`http://127.0.0.1:8000/user/${users_id}/`, {
+    const response = await fetch(`${backend_base_url}/user/${users_id}/`, {
         method: 'GET',
     });
 
@@ -57,7 +57,7 @@ async function ProfileUpdate() {
     formData.append("introduction", introduction);
     formData.append("profile_img", img);
 
-    const response = await fetch(`http://127.0.0.1:8000/user/`, {
+    const response = await fetch(`${backend_base_url}/user/`, {
         method: "PUT",
         headers: {
             Authorization: "Bearer " + token,
@@ -82,7 +82,7 @@ async function ProfileUpdate() {
 
 // 프로필 북마크 게시글 불러오기
 async function LoadBookmark() {
-    const response = await fetch(`http://127.0.0.1:8000/user/${users_id}/`, {
+    const response = await fetch(`${backend_base_url}/user/${users_id}/`, {
         method: 'GET',
     });
 

@@ -1,5 +1,8 @@
 export const BACK_BASE_URL = "http://127.0.0.1:8000";
+// export const BACK_BASE_URL = "https://lucedude.link"
 export const FRONT_BASE_URL = "http://127.0.0.1:5500";
+const NEW_FRONT_BASE_URL = "https://jinyjin7.github.io/"
+
 const token = localStorage.getItem("access");
 
 // 회원가입
@@ -20,6 +23,7 @@ export async function handleSignup() {
         password2: password2,
       }),
     });
+
 
     // 회원 가입 성공 또는 실패에 따른 처리
     if (response.ok) {
