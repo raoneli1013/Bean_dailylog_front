@@ -1,0 +1,39 @@
+#signup-container{
+    margin: auto;
+    width: 100%;
+    border-radius: 5px;
+    text-align: center;
+    padding: 20px;
+    padding-top: 65px;
+    }
+
+.signup-text{
+    text-align: center;
+    font-size: 30px;
+        
+}
+    
+#signup-box{
+    margin: auto;
+    width: 50%;
+    border-radius: 5px;
+    text-align: center;
+    padding: 20px;
+    background-color:#FFF8D6; 
+}
+    
+input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: none;
+}
+
+#signup-submit{
+    color: white;
+} 
+
+.link-success{
+    text-decoration-line: none;
+}    
