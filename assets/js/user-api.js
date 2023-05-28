@@ -100,13 +100,9 @@ export async function handleLogin() {
         }
   }
 }
-
-
-
-
 }
 
-async function getProfile() {
+export async function getProfile() {
   const response = await fetch(`${BACK_BASE_URL}/user/${user_id}`, {
     headers: {
       "Authorization": "Bearer" + localStorage.getItem("access")
@@ -120,4 +116,6 @@ export async function handlegoogleLogin() {
   const response = await fetch(`${BACK_BASE_URL}/user/google/login`, {
     method: "GET",
   })
+
+  
 };
