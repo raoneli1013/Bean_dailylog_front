@@ -1,7 +1,7 @@
-const backend_base_url = "http://127.0.0.1:8000"
-const frontend_base_url = "http://127.0.0.1:5500"
-// const backend_base_url = "https://lucedude.link" // 서버 주소
-// const frontend_base_url = "https://jinyjin7.github.io" //깃허브 페이지 주소
+// const backend_base_url = "http://127.0.0.1:8000"
+// const frontend_base_url = "http://127.0.0.1:5500"
+const backend_base_url = "https://lucedude.link" // 서버 주소
+const frontend_base_url = "https://jinyjin7.github.io" //깃허브 페이지 주소
 // import { LikeLike, ClickLike } from './diary_api';
 
 
@@ -23,6 +23,7 @@ window.onload = async function getDiaryDetail() {
       'Authorization': 'Bearer ' + localStorage.getItem("access"),
     },
     method: 'GET',
+    
   });
 
   // 좋아요한 아이디 안에 user.id가 있으면 채워진 하트를 보여줌
