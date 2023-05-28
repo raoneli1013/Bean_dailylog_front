@@ -116,6 +116,41 @@ export async function handlegoogleLogin() {
   const response = await fetch(`${BACK_BASE_URL}/user/google/login`, {
     method: "GET",
   })
-
-  
 };
+
+export async function updatePayload() {
+  // URL에서 쿼리 매개변수 가져오기
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('access')){
+  const accessToken = urlParams.get('access');
+  const refreshToken = urlParams.get('refresh');
+
+  // 로컬 스토리지에 토큰 저장
+  localStorage.setItem('access', accessToken);
+  localStorage.setItem('refresh', refreshToken);
+
+  const base64Url = accessToken.split('.')[1];
+  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+  // 기존 payload 객체 생성 후 user_id로 정보요청
+  const payloadObj = JSON.parse(jsonPayload);
+  const userId = payloadObj.user_id
+  const response_get_user = await fetch(`${BACK_BASE_URL}/user/${userId}/`, {
+      method: "GET",
+  })
+
+  // 사용자 정보 객체 생성 후 기존 payload에 추가할 속성 할당
+  const response_user_json = await response_get_user.json();
+  payloadObj.profile_img = response_user_json.profile_img;
+  payloadObj.introduction = response_user_json.introduction;
+  payloadObj.nickname = response_user_json.nickname;
+  payloadObj.email = response_user_json.email;
+
+  // 업데이트된 payload를 문자열로 변환
+  const updatedPayload = JSON.stringify(payloadObj);
+
+  localStorage.setItem("payload", updatedPayload);
+}
+}

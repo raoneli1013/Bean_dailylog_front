@@ -1,6 +1,9 @@
-const BACK_BASE_URL = "http://127.0.0.1:8000";
-const FRONT_BASE_URL = "http://127.0.0.1:5500";
-const token = localStorage.getItem("access");
+import {
+    BACK_BASE_URL,
+    FRONT_BASE_URL,
+    token,
+    LikeLike,
+} from './api.js'
 
 // 좋아요
 

@@ -1,4 +1,7 @@
-import { BACK_BASE_URL, handleLogin, handlegoogleLogin } from "./user-api.js";
+import { 
+  BACK_BASE_URL, 
+  handleLogin,
+  } from "./api.js";
 
 document.getElementById("login-submit").onclick = function () {
   // 구글로그인 요청
