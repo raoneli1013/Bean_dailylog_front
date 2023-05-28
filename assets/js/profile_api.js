@@ -1,6 +1,6 @@
-// const frontend_base_url = "https://jinyjin7.github.io/"
+const frontend_base_url = "https://jinyjin7.github.io/"
 const backend_base_url = "https://lucedude.link"
-const front_base_url = "http://127.0.0.1:5500"
+// const front_base_url = "http://127.0.0.1:5500"
 // const backend_base_url = "http://127.0.0.1:8000"
 
 
@@ -71,22 +71,6 @@ async function ProfileUpdate() {
         },
         body: formData,
     });
-
-    // const formData = new FormData();
-    // formData.append("nickname", nickname);
-    // formData.append("introduction", introduction);
-
-    // if (img) {
-    //     formData.append("profile_img", img);
-    // }
-
-    // const response = await fetch(`${backend_base_url}/user/`, {
-    //     method: "PUT",
-    //     headers: {
-    //         Authorization: "Bearer " + token,
-    //     },
-    //     body: formData,
-    // });
 
 
     if (response.status == 200) {
