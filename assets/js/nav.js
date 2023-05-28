@@ -20,7 +20,7 @@ $(document).ready(function () {
             console.log(payload_parse.user_id, "네비 id값 출력되는지 확인용");
             intro.innerText = `${payload_parse.nickname}님 안녕하세요`;
             intro.setAttribute('style', 'color: wheat;')
-            intro.href = `${FRONT_BASE_URL}/profile.html`
+            intro.href = `${FRONT_BASE_URL}/profile2.html`
             // fetch(`${BACK_BASE_URL}/user/` + payload_parse.user_id)
 
 

@@ -1,3 +1,7 @@
+// const backend_base_url = "http://127.0.0.1:8000"
+const backend_base_url = "https://lucedude.link"
+const frontend_base_url = "http://127.0.0.1:5500"
+// import { LikeLike, ClickLike } from './diary_api';
 // 유저프로필에서 북마크 가져오는 js
 // 추후 게시글이 추가되면 상세내용은 바꿀 예정입니다
 
@@ -6,7 +10,7 @@ const payload_parse = JSON.parse(payload);
 const users_id = payload_parse.user_id
 console.log(users_id)
 
-window.onload = fetch(`${backend_base_url}/diary/${users_id}/bookmark/`, {
+window.onload = fetch(`${backend_base_url}/diary/${diary_id}/bookmark/`, {
     headers: {
         "Authorization": "Bearer " + localStorage.getItem("access")
     }
@@ -20,7 +24,7 @@ window.onload = fetch(`${backend_base_url}/diary/${users_id}/bookmark/`, {
     data.forEach((a) => {
         let title = a['title']
         let img = a['article_img']
-        let id = a['id']
+        let nickname = a['nickname']
         let temp_html = `<div class="col mb-5">
                 <div class="card h-100">
                     <img class="card-img-top" src="${img}" alt="..." />
@@ -36,12 +40,12 @@ window.onload = fetch(`${backend_base_url}/diary/${users_id}/bookmark/`, {
                     </div>
                     <!-- 보러가기 버튼-->
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn me-2 btn_org"
+                        <div class="text-center"><a class="btn"
                             href="${frontend_base_url}/diary_detail.html?id=${id}">보러가기</a></div>
                     </div>
                 </div>
             </div>`
-        $('#article-box').append(temp_html)
+        $('#bookmark-box').append(temp_html)
 
     });
 

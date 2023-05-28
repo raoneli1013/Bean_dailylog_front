@@ -1,5 +1,9 @@
-export const BACK_BASE_URL = "http://127.0.0.1:8000";
+// export const BACK_BASE_URL = "http://127.0.0.1:8000";
+export const BACK_BASE_URL = "https://lucedude.link"
 export const FRONT_BASE_URL = "http://127.0.0.1:5500";
+const NEW_FRONT_BASE_URL = "https://jinyjin7.github.io/"
+console.log("userapi연결")
+
 const token = localStorage.getItem("access");
 
 // 회원가입
@@ -20,6 +24,7 @@ export async function handleSignup() {
         password2: password2,
       }),
     });
+
 
     // 회원 가입 성공 또는 실패에 따른 처리
     if (response.ok) {
@@ -59,7 +64,7 @@ export async function handleLogin() {
       "password": password
     })
   })
-  if (response.ok){
+  if (response.ok) {
     alert("로그인 완료!");
     const response_json = await response.json()
 
@@ -79,6 +84,7 @@ export async function handleLogin() {
       method: "GET",
     })
 
+
     // 사용자 정보 객체 생성 후 기존 payload에 추가할 속성 할당
     const response_user_json = await response_get_user.json();
     payloadObj.profile_img = response_user_json.profile_img;
@@ -91,15 +97,15 @@ export async function handleLogin() {
 
     localStorage.setItem("payload", updatedPayload);
     window.location.href = `${FRONT_BASE_URL}/feed.html`
-  } else{
+  } else {
     const responseData = await response.json();
-      // 키/값 alert으로 출력
-      for (let key in responseData) {
-        if (responseData.hasOwnProperty(key)) {
-          alert(key + ": " + responseData[key]);
-        }
+    // 키/값 alert으로 출력
+    for (let key in responseData) {
+      if (responseData.hasOwnProperty(key)) {
+        alert(key + ": " + responseData[key]);
+      }
+    }
   }
-}
 
 
 
