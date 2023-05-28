@@ -100,9 +100,15 @@
 }
 
 #content{
+    color: wheat;
     background-color: #617A55;
     border: solid;
     border-radius: 8px;
+    margin: auto;
+    width: 70%;
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 10px;
 }
 
 .comment-view{
