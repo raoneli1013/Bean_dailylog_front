@@ -435,38 +435,6 @@ export async function deleteComment(id) {
   location.reload();
 }
 
-// 수정된 댓글 내용 저장 요청
-export async function saveEditedComment(id) {
-  const urlParams = new URLSearchParams(window.location.search);
-  const diary_id = urlParams.get('id');
-  const newContent = document.getElementById(`edit-input-${id}`).value;
-  const response = await fetch(`${BACK_BASE_URL}/diary/comment/${diary_id}/${id}/`, {
-    headers: {
-      'Authorization': 'Bearer ' + localStorage.getItem('access'),
-      'Content-Type': 'application/json',
-    },
-    method: 'PUT',
-    body: JSON.stringify({
-      content: newContent,
-    }),
-  });
-  location.reload();
-}
-
-// 댓글 삭제 요청
-export async function deleteComment(id) {
-  const urlParams = new URLSearchParams(window.location.search);
-  const diary_id = urlParams.get('id');
-  const response = await fetch(`${BACK_BASE_URL}/diary/comment/${diary_id}/${id}`, {
-    headers: {
-      Authorization: 'Bearer ' + localStorage.getItem('access'),
-    },
-    method: 'DELETE',
-  });
-  // 페이지를 새로고침합니다.
-  location.reload();
-}
-
 // 북마크 클릭 시
 export async function ClickBookmark() {
   const urlParams = new URLSearchParams(window.location.search);
