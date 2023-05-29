@@ -1,5 +1,3 @@
-// const backend_base_url = "http://127.0.0.1:8000"
-// const frontend_base_url = "http://127.0.0.1:5500"
 const backend_base_url = "https://lucedude.link" // 서버 주소
 const frontend_base_url = "https://jinyjin7.github.io" //깃허브 페이지 주소
 // import { LikeLike, ClickLike } from './diary_api';
@@ -386,6 +384,7 @@ async function editDiary() {
     contentInput.value = content.innerText;
     content.innerText = '';
     content.appendChild(contentInput);
+
   } else {
     // 저장 모드로 변경
     const updatedTitle = document.getElementById('updated-title').value;
@@ -400,6 +399,7 @@ async function editDiary() {
       body: JSON.stringify({
         title: updatedTitle,
         content: updatedContent,
+        article_img : `${response_json['article_img']}`
       }),
     });
 
