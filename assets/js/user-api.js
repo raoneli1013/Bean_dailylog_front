@@ -1,6 +1,7 @@
+
 export const BACK_BASE_URL = "https://lucedude.link"
-const FRONT_BASE_URL = "https://jinyjin7.github.io/"
-console.log("userapi연결")
+export const FRONT_BASE_URL = "https://jinyjin7.github.io/";
+
 
 const token = localStorage.getItem("access");
 

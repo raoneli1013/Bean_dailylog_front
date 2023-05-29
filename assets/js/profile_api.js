@@ -1,4 +1,4 @@
-const frontend_base_url = "https://jinyjin7.github.io/"
+const front_base_url = "https://jinyjin7.github.io/"
 const backend_base_url = "https://lucedude.link"
 // const front_base_url = "http://127.0.0.1:5500"
 // const backend_base_url = "http://127.0.0.1:8000"
