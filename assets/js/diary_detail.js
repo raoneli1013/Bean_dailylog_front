@@ -64,7 +64,7 @@ window.onload = async function getDiaryDetail() {
   const nickname = document.getElementById('nickname')
   nickname.setAttribute('id', 'nickname')
   nickname.setAttribute('class', 'link-success')
-  nickname.setAttribute('href', `${frontend_base_url}/profile.html?id=${diary_id}`)
+  nickname.setAttribute('href', `${frontend_base_url}/profile2.html?id=${diary_id}`)
   nickname.innerText = `${nickname}`;
   nickname.innerText = "작성자 닉네임 : " + author['nickname']
   console.log("??", author)
