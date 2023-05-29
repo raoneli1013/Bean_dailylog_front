@@ -1,6 +1,4 @@
-// const BACK_BASE_URL = "http://127.0.0.1:8000";
 const BACK_BASE_URL = "https://lucedude.link"
-// const FRONT_BASE_URL = "http://127.0.0.1:5500";
 const FRONT_BASE_URL = "https://jinyjin7.github.io" //깃허브 페이지 주소
 
 

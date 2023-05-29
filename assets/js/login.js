@@ -7,5 +7,5 @@ document.getElementById("login-submit").onclick = function () {
 
 document.getElementById("google-login").onclick = function () {
   // 회원가입 요청
-  window.location.href = 'http://127.0.0.1:8000/user/google/login/'
+  window.location.href = 'https://lucedude.link/google/login/'
 };
