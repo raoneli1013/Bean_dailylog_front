@@ -1,5 +1,3 @@
-// const backend_base_url = "http://127.0.0.1:8000"
-// const frontend_base_url = "http://127.0.0.1:5500"
 const backend_base_url = "https://lucedude.link" // 서버 주소
 const frontend_base_url = "https://jinyjin7.github.io" //깃허브 페이지 주소
 // import { LikeLike, ClickLike } from './diary_api';
@@ -23,18 +21,10 @@ window.onload = async function getDiaryDetail() {
       'Authorization': 'Bearer ' + localStorage.getItem("access"),
     },
     method: 'GET',
-    
+
   });
 
-  // 좋아요한 아이디 안에 user.id가 있으면 채워진 하트를 보여줌
-  // 버튼클릭시 이벤트발생 함수 : 250번줄
-  // 좋아요 카운트 : 165번줄 
-  // if (response_json.likes.includes(payload.user_id)) {
-  //   const likeIcon = document.getElementById("like_icon");
-  //   likeIcon.innerText = '❤️';
-  // } else {
-  //   likeIcon.innerText = '♡';
-  // }
+
 
   const current_user_data = await response_user_current.json();
   console.log("corrunt", response_user_current)
@@ -83,7 +73,6 @@ window.onload = async function getDiaryDetail() {
 
   //key값에 image가 들어왔는지 확인
   //image, default_image인지 확인하여 출력여부 결정
-  // json article_img가 profile_img를 가져오는것같아용 확인부탁드립니댱! -소진
   if (response_json['article_img'] === null) {
     const imageBox = document.getElementById('image-box');
     const feedImage = document.createElement("img")
@@ -179,7 +168,6 @@ window.onload = async function getDiaryDetail() {
 
 
 
-    // console.log("start", response_json)
     // 좋아요 카운트
     $('#likes_count').text(response_json.likes_count);
     $('#bookmark_count').text(response_json.bookmarks_count);
@@ -281,42 +269,42 @@ likeButtonClick.addEventListener('click', async function () {
   const diary = await getDiaryDetail(diary_id);
 
   //좋아요 여부에 따라 하트 변경
-  if (response_json.likes.includes(payload.user_id)) {
-    const likeIcon = document.getElementById("like_icon");
-    likeIcon.innerText = '❤️';
-  } else {
-    likeIcon.innerText = '♡';
-  }
+  // if (response_json.likes.includes(payload.user_id)) {
+  //   const likeIcon = document.getElementById("like_icon");
+  //   likeIcon.innerText = '❤️';
+  // } else {
+  //   likeIcon.innerText = '♡';
+  // }
 });
 
 
 
 // //좋아요 -> diary_api.js로 이동
 
-// export async function LikeLike() {
-//   const response = await fetch(`${backend_base_url}/diary/${diary_id}/likes/`, {
-//     headers: {
-//       "Authorization": "Bearer " + localStorage.getItem("access"),
-//       'content-type': 'application/json',
-//     },
-//     method: 'POST',
-//   })
+export async function LikeLike() {
+  const response = await fetch(`${backend_base_url}/diary/${diary_id}/likes/`, {
+    headers: {
+      "Authorization": "Bearer " + localStorage.getItem("access"),
+      'content-type': 'application/json',
+    },
+    method: 'POST',
+  })
 
-//   response_json = await response.json()
-//   console.log("start", response_json)
-//   const like_image = response_json.likes_image
-//   console.log(like_image)
+  response_json = await response.json()
+  console.log("start", response_json)
+  const like_image = response_json.likes_image
+  console.log(like_image)
 
 
-//   if (response.status === 200) {
-//     alert("하튜")
-//     if (like_image === true) {
-//     } else if (like_image === false) {
+  if (response.status === 200) {
+    alert("하튜")
+    if (like_image === true) {
+    } else if (like_image === false) {
 
-//     }
-//     location.reload();
-//   }
-// }
+    }
+    location.reload();
+  }
+}
 
 // // 준열님 코드 참고해서 다시작성
 // // 로그인이 안되어서 제대로 실행되는지 알 수 없는 상태라 약간 안전빵 느낌으로 
