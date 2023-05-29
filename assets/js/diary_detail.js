@@ -64,7 +64,7 @@ window.onload = async function getDiaryDetail() {
   const nickname = document.getElementById('nickname')
   nickname.setAttribute('id', 'nickname')
   nickname.setAttribute('class', 'link-success')
-  nickname.setAttribute('href', `${frontend_base_url}/profile.html?id=${diary_id}`)
+  nickname.setAttribute('href', `${frontend_base_url}/profile2.html?id=${diary_id}`)
   nickname.innerText = `${nickname}`;
   nickname.innerText = "작성자 닉네임 : " + author['nickname']
   console.log("??", author)
@@ -148,7 +148,7 @@ window.onload = async function getDiaryDetail() {
     const editInput = document.createElement('input');
     editInput.setAttribute('type', 'text');
     editInput.setAttribute('id', `edit-input-${comment['id']}`);
-    editForm.appendChild(editInput);
+    editForm.appendChild(editInput); 
 
     const saveButton = document.createElement('button');
     saveButton.innerText = '저장';
@@ -324,6 +324,7 @@ async function editDiary() {
     contentInput.value = content.innerText;
     content.innerText = '';
     content.appendChild(contentInput);
+
   } else {
     // 저장 모드로 변경
     const updatedTitle = document.getElementById('updated-title').value;
@@ -338,6 +339,7 @@ async function editDiary() {
       body: JSON.stringify({
         title: updatedTitle,
         content: updatedContent,
+        article_img : `${response_json['article_img']}`
       }),
     });
 
